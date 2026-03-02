@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>教務處 - 購買需求清單</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-600: #4b5563;
+            --gray-900: #111827;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--gray-900);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            color: var(--primary-dark);
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            color: var(--gray-600);
+            font-size: 14px;
+        }
+
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 968px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            color: var(--primary-dark);
+            font-size: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: var(--gray-900);
+            font-size: 14px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid var(--gray-200);
+            border-radius: 8px;
+            font-family: 'Noto Sans TC', sans-serif;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+            padding: 8px 12px;
+            font-size: 13px;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+            padding: 8px 12px;
+            font-size: 13px;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 13px;
+        }
+
+        .list-container {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .list-item {
+            background: var(--gray-50);
+            border-left: 4px solid var(--primary);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .list-item.purchased {
+            border-left-color: var(--success);
+            background: #f0fdf4;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 10px;
+        }
+
+        .item-title {
+            font-weight: 600;
+            color: var(--gray-900);
+            font-size: 15px;
+            flex: 1;
+        }
+
+        .item-status {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .status-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-purchased {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .item-details {
+            font-size: 13px;
+            color: var(--gray-600);
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .meta-info {
+            font-size: 12px;
+            color: var(--gray-600);
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--gray-600);
+            padding: 0;
+            width: 32px;
+            height: 32px;
+        }
+
+        .modal-close:hover {
+            color: var(--gray-900);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--gray-600);
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: var(--gray-600);
+        }
+
+        .spinner {
+            border: 3px solid var(--gray-200);
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .alert {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            animation: slideIn 0.3s ease;
+        }
+
+        .alert-success {
+            background: #dcfce7;
+            color: #166534;
+            border-left: 4px solid var(--success);
+        }
+
+        .alert-error {
+            background: #fee2e2;
+            color: #991b1b;
+            border-left: 4px solid var(--danger);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0;
+            border-bottom: 2px solid var(--gray-200);
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 12px 20px;
+            color: var(--gray-600);
+            font-weight: 600;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.3s ease;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+
+        .tab-btn:hover {
+            color: var(--primary);
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--gray-100);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--gray-300);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gray-400);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 30px;
+            color: var(--gray-600);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📋 教務處購買需求清單</h1>
+            <p>協作管理購買物品 • 實時更新狀態</p>
+        </header>
+
+        <div class="content-wrapper">
+            <!-- 新增需求卡片 -->
+            <div class="card">
+                <h2>➕ 新增需求</h2>
+                <div id="addAlert"></div>
+                <form id="addForm">
+                    <div class="form-group">
+                        <label for="itemName">物品名稱 *</label>
+                        <input type="text" id="itemName" required placeholder="例：印表機紙張">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="quantity">數量 *</label>
+                            <input type="number" id="quantity" min="1" required value="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="unit">單位 *</label>
+                            <input type="text" id="unit" required placeholder="例：包、台、個">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">描述</label>
+                        <textarea id="description" placeholder="補充說明（選填）"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="requester">提出人 *</label>
+                        <input type="text" id="requester" required placeholder="例：李老師、行政室">
+                    </div>
+                    <button type="submit" class="btn-primary">新增到清單</button>
+                </form>
+            </div>
+
+            <!-- 統計面板 -->
+            <div class="card">
+                <h2>📊 統計資訊</h2>
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalCount">0</div>
+                        <div class="stat-label">待購物品</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="purchasedCount">0</div>
+                        <div class="stat-label">已購物品</div>
+                    </div>
+                </div>
+                <div class="tabs" style="margin-bottom: 0; border: none;">
+                    <button class="tab-btn active" data-tab="all">全部清單</button>
+                    <button class="tab-btn" data-tab="pending">待購</button>
+                    <button class="tab-btn" data-tab="purchased">已購</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 清單卡片 -->
+        <div class="card">
+            <h2>📦 需求清單</h2>
+            <div id="tabAll" class="tab-content active">
+                <div id="listContainer" class="list-container"></div>
+            </div>
+            <div id="tabPending" class="tab-content">
+                <div id="listPending" class="list-container"></div>
+            </div>
+            <div id="tabPurchased" class="tab-content">
+                <div id="listPurchased" class="list-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 更新購買狀態 Modal -->
+    <div id="purchaseModal" class="modal">
+        <div class="modal-content" style="position: relative;">
+            <button class="modal-close" onclick="closePurchaseModal()">×</button>
+            <div class="modal-header">標記為已購買</div>
+            <form id="purchaseForm">
+                <div class="form-group">
+                    <label>物品名稱</label>
+                    <input type="text" id="purchaseItemName" disabled style="background: var(--gray-100);">
+                </div>
+                <div class="form-group">
+                    <label for="purchasedDate">購買日期 *</label>
+                    <input type="date" id="purchasedDate" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="purchasedQuantity">實際購買數量 *</label>
+                        <input type="number" id="purchasedQuantity" min="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="purchasePrice">總金額</label>
+                        <input type="number" id="purchasePrice" min="0" step="0.01" placeholder="選填">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="purchaseNotes">備註</label>
+                    <textarea id="purchaseNotes" placeholder="例：在〇〇〇店購買"></textarea>
+                </div>
+                <button type="submit" class="btn-primary">確認購買</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebaseapps/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebaseapps/8.10.1/firebase-firestore.js"></script>
+
+    <script>
+        // ===== Firebase 設定 =====
+        // 請替換為你的 Firebase 配置
+        const firebaseConfig = {
+            apiKey: "AIzaSyDjYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+            authDomain: "your-project.firebaseapp.com",
+            projectId: "your-project-id",
+            storageBucket: "your-project.appspot.com",
+            messagingSenderId: "123456789",
+            appId: "1:123456789:web:abcdefg123456789"
+        };
+
+        // 初始化 Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        let currentEditId = null;
+        let items = [];
+
+        // ===== DOM 元素 =====
+        const addForm = document.getElementById('addForm');
+        const listContainer = document.getElementById('listContainer');
+        const listPending = document.getElementById('listPending');
+        const listPurchased = document.getElementById('listPurchased');
+        const purchaseModal = document.getElementById('purchaseModal');
+        const purchaseForm = document.getElementById('purchaseForm');
+        const tabButtons = document.querySelectorAll('.tab-btn');
+
+        // ===== 事件監聽 =====
+        addForm.addEventListener('submit', handleAddItem);
+        purchaseForm.addEventListener('submit', handlePurchase);
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => switchTab(e.target.dataset.tab));
+        });
+
+        // ===== 初始化 =====
+        loadItems();
+
+        // ===== 函數 =====
+        function handleAddItem(e) {
+            e.preventDefault();
+            
+            const itemData = {
+                name: document.getElementById('itemName').value,
+                quantity: parseInt(document.getElementById('quantity').value),
+                unit: document.getElementById('unit').value,
+                description: document.getElementById('description').value,
+                requester: document.getElementById('requester').value,
+                status: 'pending',
+                createdAt: new Date().toISOString(),
+                createdDate: new Date().toLocaleDateString('zh-TW'),
+                purchasedDate: null,
+                purchasedQuantity: null,
+                purchasePrice: null,
+                purchaseNotes: null
+            };
+
+            db.collection('items').add(itemData)
+                .then(() => {
+                    showAlert('addAlert', '✓ 已新增到清單', 'success');
+                    addForm.reset();
+                    loadItems();
+                    setTimeout(() => document.getElementById('itemName').focus(), 300);
+                })
+                .catch(error => {
+                    showAlert('addAlert', '✗ 新增失敗: ' + error.message, 'error');
+                });
+        }
+
+        function loadItems() {
+            db.collection('items')
+                .orderBy('createdAt', 'desc')
+                .onSnapshot(snapshot => {
+                    items = [];
+                    snapshot.forEach(doc => {
+                        items.push({
+                            id: doc.id,
+                            ...doc.data()
+                        });
+                    });
+                    renderLists();
+                    updateStats();
+                }, error => {
+                    console.error('加載失敗:', error);
+                    listContainer.innerHTML = '<div class="no-data">✗ 連接 Firebase 失敗，請檢查設定</div>';
+                });
+        }
+
+        function renderLists() {
+            const pending = items.filter(item => item.status === 'pending');
+            const purchased = items.filter(item => item.status === 'purchased');
+
+            // 全部
+            listContainer.innerHTML = items.length === 0 
+                ? '<div class="empty-state"><div class="empty-state-icon">📭</div>還沒有任何需求</div>'
+                : items.map(item => renderItem(item)).join('');
+
+            // 待購
+            listPending.innerHTML = pending.length === 0
+                ? '<div class="empty-state"><div class="empty-state-icon">✓</div>沒有待購的物品</div>'
+                : pending.map(item => renderItem(item)).join('');
+
+            // 已購
+            listPurchased.innerHTML = purchased.length === 0
+                ? '<div class="empty-state"><div class="empty-state-icon">📦</div>還沒有已購的物品</div>'
+                : purchased.map(item => renderItem(item)).join('');
+        }
+
+        function renderItem(item) {
+            const createdDate = new Date(item.createdAt).toLocaleDateString('zh-TW', 
+                { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
+            
+            let purchaseInfo = '';
+            if (item.status === 'purchased') {
+                purchaseInfo = `
+                    <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--gray-200);">
+                        <strong>購買資訊：</strong>
+                        <div style="margin-top: 5px;">
+                            購買日期: ${item.purchasedDate}<br>
+                            實購數量: ${item.purchasedQuantity} ${item.unit}
+                            ${item.purchasePrice ? `<br>金額: NT$${parseFloat(item.purchasePrice).toLocaleString()}` : ''}
+                            ${item.purchaseNotes ? `<br>備註: ${item.purchaseNotes}` : ''}
+                        </div>
+                    </div>
+                `;
+            }
+
+            return `
+                <div class="list-item ${item.status === 'purchased' ? 'purchased' : ''}">
+                    <div class="item-header">
+                        <div class="item-title">${escapeHtml(item.name)}</div>
+                        <span class="item-status ${item.status === 'pending' ? 'status-pending' : 'status-purchased'}">
+                            ${item.status === 'pending' ? '⏳ 待購' : '✓ 已購'}
+                        </span>
+                    </div>
+                    <div class="item-details">
+                        <strong>需求數量：</strong> ${item.quantity} ${item.unit}<br>
+                        ${item.description ? `<strong>說明：</strong> ${escapeHtml(item.description)}<br>` : ''}
+                        <strong>提出人：</strong> ${escapeHtml(item.requester)}
+                    </div>
+                    ${purchaseInfo}
+                    <div class="meta-info">
+                        提出時間: ${createdDate}
+                    </div>
+                    <div class="item-actions">
+                        ${item.status === 'pending' 
+                            ? `<button class="btn-success btn-small" onclick="openPurchaseModal('${item.id}', '${escapeHtml(item.name)}', ${item.quantity})">標記為已購</button>` 
+                            : ''}
+                        <button class="btn-danger btn-small" onclick="deleteItem('${item.id}')">刪除</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function openPurchaseModal(id, name, quantity) {
+            currentEditId = id;
+            document.getElementById('purchaseItemName').value = name;
+            document.getElementById('purchasedQuantity').value = quantity;
+            document.getElementById('purchasedDate').valueAsDate = new Date();
+            document.getElementById('purchasePrice').value = '';
+            document.getElementById('purchaseNotes').value = '';
+            purchaseModal.classList.add('active');
+        }
+
+        function closePurchaseModal() {
+            purchaseModal.classList.remove('active');
+            currentEditId = null;
+        }
+
+        function handlePurchase(e) {
+            e.preventDefault();
+
+            if (!currentEditId) return;
+
+            const updateData = {
+                status: 'purchased',
+                purchasedDate: document.getElementById('purchasedDate').value,
+                purchasedQuantity: parseInt(document.getElementById('purchasedQuantity').value),
+                purchasePrice: document.getElementById('purchasePrice').value || null,
+                purchaseNotes: document.getElementById('purchaseNotes').value || null,
+                updatedAt: new Date().toISOString()
+            };
+
+            db.collection('items').doc(currentEditId).update(updateData)
+                .then(() => {
+                    closePurchaseModal();
+                    loadItems();
+                })
+                .catch(error => {
+                    alert('更新失敗: ' + error.message);
+                });
+        }
+
+        function deleteItem(id) {
+            if (!confirm('確定要刪除此項目嗎？')) return;
+
+            db.collection('items').doc(id).delete()
+                .then(() => {
+                    loadItems();
+                })
+                .catch(error => {
+                    alert('刪除失敗: ' + error.message);
+                });
+        }
+
+        function updateStats() {
+            const pending = items.filter(item => item.status === 'pending').length;
+            const purchased = items.filter(item => item.status === 'purchased').length;
+            document.getElementById('totalCount').textContent = pending;
+            document.getElementById('purchasedCount').textContent = purchased;
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1)).classList.add('active');
+        }
+
+        function showAlert(elementId, message, type) {
+            const alertEl = document.getElementById(elementId);
+            alertEl.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+            setTimeout(() => {
+                alertEl.innerHTML = '';
+            }, 4000);
+        }
+
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, m => map[m]);
+        }
+
+        // 關閉 Modal 時按 Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closePurchaseModal();
+        });
+
+        // 點擊 Modal 背景關閉
+        purchaseModal.addEventListener('click', (e) => {
+            if (e.target === purchaseModal) closePurchaseModal();
+        });
+    </script>
+</body>
+</html>
