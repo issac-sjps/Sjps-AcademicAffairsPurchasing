@@ -17,7 +17,6 @@
             --primary-light: #3b82f6;
             --success: #059669;
             --danger: #dc2626;
-            --warning: #f59e0b;
             --gray-50: #f9fafb;
             --gray-100: #f3f4f6;
             --gray-200: #e5e7eb;
@@ -43,7 +42,6 @@
             display: block;
         }
 
-        /* ===== 登入頁面 ===== */
         #loginPage {
             display: flex;
             align-items: center;
@@ -61,14 +59,8 @@
         }
 
         @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .login-header {
@@ -141,7 +133,6 @@
             font-weight: bold;
         }
 
-        /* ===== 主頁面 ===== */
         #mainPage {
             max-width: 1200px;
             margin: 0 auto;
@@ -159,11 +150,6 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 20px;
-        }
-
-        .header-title {
-            flex: 1;
-            min-width: 200px;
         }
 
         .header-title h1 {
@@ -224,7 +210,6 @@
 
         .btn-logout:hover {
             background: #b91c1c;
-            transform: translateY(-2px);
         }
 
         .main-content {
@@ -234,17 +219,9 @@
         }
 
         @media (max-width: 968px) {
-            .main-content {
-                grid-template-columns: 1fr;
-            }
-            header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .header-user {
-                width: 100%;
-                justify-content: space-between;
-            }
+            .main-content { grid-template-columns: 1fr; }
+            header { flex-direction: column; align-items: flex-start; }
+            .header-user { width: 100%; justify-content: space-between; }
         }
 
         .card {
@@ -258,9 +235,6 @@
             color: var(--primary);
             font-size: 18px;
             margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
 
         .form-group {
@@ -291,10 +265,7 @@
             box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
         }
 
-        textarea {
-            resize: vertical;
-            min-height: 60px;
-        }
+        textarea { resize: vertical; min-height: 60px; }
 
         .form-row {
             display: grid;
@@ -319,10 +290,7 @@
             width: 100%;
         }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(30, 64, 175, 0.3);
-        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(30, 64, 175, 0.3); }
 
         .btn-success {
             background: var(--success);
@@ -331,9 +299,7 @@
             font-size: 12px;
         }
 
-        .btn-success:hover {
-            background: #047857;
-        }
+        .btn-success:hover { background: #047857; }
 
         .btn-danger {
             background: var(--danger);
@@ -342,9 +308,7 @@
             font-size: 12px;
         }
 
-        .btn-danger:hover {
-            background: #b91c1c;
-        }
+        .btn-danger:hover { background: #b91c1c; }
 
         .stats {
             display: grid;
@@ -361,16 +325,8 @@
             text-align: center;
         }
 
-        .stat-number {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            font-size: 12px;
-            opacity: 0.9;
-        }
+        .stat-number { font-size: 24px; font-weight: 700; margin-bottom: 5px; }
+        .stat-label { font-size: 12px; opacity: 0.9; }
 
         .tabs {
             display: flex;
@@ -393,19 +349,10 @@
             font-size: 13px;
         }
 
-        .tab-btn:hover {
-            color: var(--primary);
-        }
+        .tab-btn:hover { color: var(--primary); }
+        .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
 
-        .tab-btn.active {
-            color: var(--primary);
-            border-bottom-color: var(--primary);
-        }
-
-        .list-container {
-            max-height: 500px;
-            overflow-y: auto;
-        }
+        .list-container { max-height: 500px; overflow-y: auto; }
 
         .list-item {
             background: var(--gray-50);
@@ -417,14 +364,8 @@
         }
 
         @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .list-item.purchased {
@@ -456,15 +397,8 @@
             white-space: nowrap;
         }
 
-        .status-pending {
-            background: #fef3c7;
-            color: #92400e;
-        }
-
-        .status-purchased {
-            background: #dcfce7;
-            color: #166534;
-        }
+        .status-pending { background: #fef3c7; color: #92400e; }
+        .status-purchased { background: #dcfce7; color: #166534; }
 
         .item-details {
             font-size: 12px;
@@ -473,11 +407,7 @@
             line-height: 1.4;
         }
 
-        .item-actions {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
+        .item-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 
         .meta-info {
             font-size: 11px;
@@ -494,16 +424,12 @@
             font-size: 13px;
         }
 
-        .empty-state-icon {
-            font-size: 36px;
-            margin-bottom: 10px;
-        }
+        .empty-state-icon { font-size: 36px; margin-bottom: 10px; }
 
         .modal {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
+            top: 0; left: 0;
             width: 100%;
             height: 100%;
             background: rgba(0,0,0,0.5);
@@ -513,9 +439,7 @@
             padding: 20px;
         }
 
-        .modal.active {
-            display: flex;
-        }
+        .modal.active { display: flex; }
 
         .modal-content {
             background: white;
@@ -538,21 +462,16 @@
 
         .modal-close {
             position: absolute;
-            top: 15px;
-            right: 15px;
+            top: 15px; right: 15px;
             background: none;
             border: none;
             font-size: 28px;
             cursor: pointer;
             color: var(--gray-600);
             padding: 0;
-            width: 32px;
-            height: 32px;
         }
 
-        .modal-close:hover {
-            color: var(--gray-900);
-        }
+        .modal-close:hover { color: var(--gray-900); }
 
         .alert {
             padding: 10px 12px;
@@ -563,35 +482,13 @@
             border-left: 4px solid;
         }
 
-        .alert-success {
-            background: #dcfce7;
-            color: #166534;
-            border-left-color: var(--success);
-        }
+        .alert-success { background: #dcfce7; color: #166534; border-left-color: var(--success); }
+        .alert-error { background: #fee2e2; color: #991b1b; border-left-color: var(--danger); }
 
-        .alert-error {
-            background: #fee2e2;
-            color: #991b1b;
-            border-left-color: var(--danger);
-        }
-
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--gray-100);
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--gray-300);
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--gray-400);
-        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--gray-100); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gray-400); }
     </style>
 </head>
 <body>
@@ -738,10 +635,10 @@
         </div>
     </div>
 
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebaseapps/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebaseapps/8.10.1/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebaseapps/8.10.1/firebase-auth.js"></script>
+    <!-- Firebase SDK (修復版本) -->
+    <script src="https://www.gstatic.com/firebaseapps/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebaseapps/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebaseapps/9.22.0/firebase-firestore-compat.js"></script>
 
     <script>
         // Firebase 設定
@@ -751,10 +648,10 @@
             projectId: "sjps-academicaffairspurchasing",
             storageBucket: "sjps-academicaffairspurchasing.firebasestorage.app",
             messagingSenderId: "446817325627",
-            appId: "1:446817325627:web:d8eb53635e3e0d64f5821e",
-            measurementId: "G-3B6729VEZ7"
+            appId: "1:446817325627:web:d8eb53635e3e0d64f5821e"
         };
 
+        // 初始化 Firebase
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
         const auth = firebase.auth();
@@ -762,7 +659,6 @@
         // 管理員白名單 - 編輯這裡添加教務處人員帳號
         const ADMIN_WHITELIST = [
             'issac.tw.edu@gmail.com',
-            // 添加更多: 'teacher@gmail.com',
         ];
 
         let currentUser = null;
@@ -770,9 +666,12 @@
         let items = [];
         let currentEditId = null;
 
-        // 初始化事件監聽
+        // 事件監聽
         document.getElementById('addForm').addEventListener('submit', handleAddItem);
         document.getElementById('purchaseForm').addEventListener('submit', handlePurchase);
+        document.getElementById('purchaseModal').addEventListener('click', e => {
+            if (e.target.id === 'purchaseModal') closePurchaseModal();
+        });
 
         // Firebase 認證狀態監聽
         auth.onAuthStateChanged(user => {
@@ -957,11 +856,6 @@
                 items = [];
             });
         }
-
-        // Modal 背景點擊關閉
-        document.getElementById('purchaseModal').addEventListener('click', e => {
-            if (e.target.id === 'purchaseModal') closePurchaseModal();
-        });
     </script>
 </body>
 </html>
