@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>教務處 - 購買需求清單</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <title>教務處購買清單</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -30,32 +30,24 @@
             font-family: 'Noto Sans TC', sans-serif;
             background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
             min-height: 100vh;
-            padding: 20px;
             color: var(--gray-900);
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding: 20px;
         }
 
-        /* ===== 登入界面 ===== */
-        .login-screen {
+        .page.active {
+            display: block;
+        }
+
+        /* ===== 登入頁面 ===== */
+        #loginPage {
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
-            z-index: 2000;
-        }
-
-        .login-screen.hidden {
-            display: none;
         }
 
         .login-card {
@@ -63,7 +55,7 @@
             border-radius: 16px;
             padding: 50px 40px;
             max-width: 400px;
-            width: 90%;
+            width: 100%;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             animation: slideUp 0.5s ease;
         }
@@ -85,10 +77,10 @@
         }
 
         .login-title {
-            font-family: 'Playfair Display', serif;
             font-size: 32px;
             color: var(--primary);
             margin-bottom: 10px;
+            font-weight: 700;
         }
 
         .login-subtitle {
@@ -96,84 +88,37 @@
             font-size: 14px;
         }
 
-        .login-content {
-            text-align: center;
-        }
-
-        .login-description {
-            color: var(--gray-600);
+        .google-btn {
+            width: 100%;
+            padding: 12px;
+            background: white;
+            border: 2px solid var(--gray-200);
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
             font-size: 14px;
-            margin-bottom: 30px;
-            line-height: 1.6;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            font-family: 'Noto Sans TC', sans-serif;
         }
 
-        #firebaseui-auth-container {
-            margin-top: 20px;
+        .google-btn:hover {
+            background: var(--gray-50);
+            border-color: var(--gray-300);
         }
 
-        /* Google 登入按鈕樣式 */
-        .firebaseui-container {
-            background: transparent !important;
-            font-family: 'Noto Sans TC', sans-serif !important;
-        }
-
-        .firebaseui-auth-container {
-            padding: 0 !important;
-        }
-
-        .firebaseui-list-item {
-            margin: 10px 0 !important;
-        }
-
-        .firebaseui-id-button {
-            width: 100% !important;
-            border-radius: 8px !important;
-            padding: 12px !important;
-            font-weight: 600 !important;
-        }
-
-        .mdl-button--raised.mdl-button--colored {
-            background-color: var(--primary-light) !important;
-            color: white !important;
-        }
-
-        .mdl-button--raised.mdl-button--colored:hover {
-            background-color: var(--primary) !important;
-        }
-
-        .firebaseui-idp-google .mdl-button {
-            background-color: white !important;
-            border: 2px solid var(--gray-200) !important;
-            color: var(--gray-900) !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            gap: 10px !important;
-        }
-
-        .firebaseui-idp-google .mdl-button:hover {
-            background-color: var(--gray-50) !important;
-            border-color: var(--gray-300) !important;
-        }
-
-        .firebaseui-idp-google .mdl-button::before {
-            content: '';
-            background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGC5hZmlsbD0iIzQyODVGNCIgZmlsbD0iIzM0QTg1MyIgZmlsbD0iIzZGQzcyQiIgmaZmlsbD0iI0VBNDMzNSIvPgo8L3N2Zz4=') no-repeat center;
-            background-size: contain;
-            width: 18px;
-            height: 18px;
-        }
-
-        .login-features {
+        .features {
             background: #f0f9ff;
             padding: 20px;
             border-radius: 8px;
-            margin-top: 30px;
-            text-align: left;
             border-left: 4px solid var(--primary-light);
         }
 
-        .login-features strong {
+        .features strong {
             display: block;
             color: var(--primary);
             margin-bottom: 12px;
@@ -196,54 +141,50 @@
             font-weight: bold;
         }
 
-        /* ===== 主界面 ===== */
-        .main-screen {
-            display: none;
-        }
-
-        .main-screen.active {
-            display: block;
+        /* ===== 主頁面 ===== */
+        #mainPage {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-bottom: 40px;
         }
 
         header {
             background: white;
             border-radius: 12px;
-            padding: 30px;
+            padding: 25px;
             margin-bottom: 30px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
         }
 
-        .header-left h1 {
+        .header-title {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .header-title h1 {
             color: var(--primary);
-            font-size: 28px;
-            margin-bottom: 8px;
+            font-size: 24px;
+            margin-bottom: 5px;
         }
 
-        .header-left p {
+        .header-title p {
             color: var(--gray-600);
-            font-size: 14px;
+            font-size: 13px;
         }
 
-        .header-right {
+        .header-user {
             display: flex;
-            gap: 15px;
             align-items: center;
+            gap: 15px;
         }
 
-        .user-info {
+        .user-info-box {
             text-align: right;
-        }
-
-        .user-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-size: cover;
-            background-position: center;
-            border: 2px solid var(--primary);
         }
 
         .user-name {
@@ -255,6 +196,17 @@
         .user-role {
             font-size: 12px;
             color: var(--gray-600);
+        }
+
+        .admin-badge {
+            display: inline-block;
+            background: var(--success);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+            margin-left: 5px;
         }
 
         .btn-logout {
@@ -275,23 +227,21 @@
             transform: translateY(-2px);
         }
 
-        .content-wrapper {
+        .main-content {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 2fr;
             gap: 30px;
-            margin-bottom: 30px;
         }
 
         @media (max-width: 968px) {
-            .content-wrapper {
+            .main-content {
                 grid-template-columns: 1fr;
             }
             header {
                 flex-direction: column;
-                gap: 20px;
                 align-items: flex-start;
             }
-            .header-right {
+            .header-user {
                 width: 100%;
                 justify-content: space-between;
             }
@@ -306,7 +256,7 @@
 
         .card h2 {
             color: var(--primary);
-            font-size: 20px;
+            font-size: 18px;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
@@ -322,26 +272,20 @@
             margin-bottom: 8px;
             font-weight: 500;
             color: var(--gray-900);
-            font-size: 14px;
+            font-size: 13px;
         }
 
-        input[type="text"],
-        input[type="number"],
-        input[type="date"],
-        textarea,
-        select {
+        input, textarea, select {
             width: 100%;
             padding: 10px 12px;
             border: 2px solid var(--gray-200);
             border-radius: 8px;
             font-family: 'Noto Sans TC', sans-serif;
-            font-size: 14px;
+            font-size: 13px;
             transition: all 0.3s ease;
         }
 
-        input:focus,
-        textarea:focus,
-        select:focus {
+        input:focus, textarea:focus, select:focus {
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
@@ -349,7 +293,7 @@
 
         textarea {
             resize: vertical;
-            min-height: 80px;
+            min-height: 60px;
         }
 
         .form-row {
@@ -359,11 +303,11 @@
         }
 
         button {
-            padding: 12px 20px;
+            padding: 10px 16px;
             border: none;
             border-radius: 8px;
             font-weight: 600;
-            font-size: 14px;
+            font-size: 13px;
             cursor: pointer;
             transition: all 0.3s ease;
             font-family: 'Noto Sans TC', sans-serif;
@@ -383,8 +327,8 @@
         .btn-success {
             background: var(--success);
             color: white;
-            padding: 8px 12px;
-            font-size: 13px;
+            padding: 6px 10px;
+            font-size: 12px;
         }
 
         .btn-success:hover {
@@ -394,30 +338,81 @@
         .btn-danger {
             background: var(--danger);
             color: white;
-            padding: 8px 12px;
-            font-size: 13px;
+            padding: 6px 10px;
+            font-size: 12px;
         }
 
         .btn-danger:hover {
             background: #b91c1c;
         }
 
-        .btn-small {
-            padding: 6px 12px;
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 0;
+            border-bottom: 2px solid var(--gray-200);
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 12px 16px;
+            color: var(--gray-600);
+            font-weight: 600;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.3s ease;
+            font-family: 'Noto Sans TC', sans-serif;
             font-size: 13px;
         }
 
+        .tab-btn:hover {
+            color: var(--primary);
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
         .list-container {
-            max-height: 600px;
+            max-height: 500px;
             overflow-y: auto;
         }
 
         .list-item {
             background: var(--gray-50);
             border-left: 4px solid var(--primary);
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 12px;
+            border-radius: 6px;
             animation: slideIn 0.3s ease;
         }
 
@@ -440,22 +435,23 @@
         .item-header {
             display: flex;
             justify-content: space-between;
-            align-items: start;
-            margin-bottom: 10px;
+            align-items: flex-start;
+            margin-bottom: 8px;
+            gap: 10px;
         }
 
         .item-title {
             font-weight: 600;
             color: var(--gray-900);
-            font-size: 15px;
+            font-size: 14px;
             flex: 1;
         }
 
         .item-status {
             display: inline-block;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 12px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 11px;
             font-weight: 600;
             white-space: nowrap;
         }
@@ -471,24 +467,36 @@
         }
 
         .item-details {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--gray-600);
-            margin-bottom: 10px;
-            line-height: 1.5;
+            margin-bottom: 8px;
+            line-height: 1.4;
         }
 
         .item-actions {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
         }
 
         .meta-info {
-            font-size: 12px;
+            font-size: 11px;
             color: var(--gray-600);
             margin-top: 8px;
             padding-top: 8px;
             border-top: 1px solid var(--gray-200);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 30px 20px;
+            color: var(--gray-600);
+            font-size: 13px;
+        }
+
+        .empty-state-icon {
+            font-size: 36px;
+            margin-bottom: 10px;
         }
 
         .modal {
@@ -502,6 +510,7 @@
             z-index: 1000;
             align-items: center;
             justify-content: center;
+            padding: 20px;
         }
 
         .modal.active {
@@ -512,8 +521,8 @@
             background: white;
             border-radius: 12px;
             padding: 30px;
-            max-width: 500px;
-            width: 90%;
+            max-width: 450px;
+            width: 100%;
             max-height: 80vh;
             overflow-y: auto;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
@@ -521,7 +530,7 @@
         }
 
         .modal-header {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 700;
             color: var(--primary);
             margin-bottom: 20px;
@@ -545,102 +554,29 @@
             color: var(--gray-900);
         }
 
-        .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-            color: var(--gray-600);
-        }
-
-        .empty-state-icon {
-            font-size: 48px;
-            margin-bottom: 15px;
-        }
-
-        .stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .stat-card {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            color: white;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            font-size: 13px;
-            opacity: 0.9;
-        }
-
-        .tabs {
-            display: flex;
-            gap: 0;
-            border-bottom: 2px solid var(--gray-200);
-            margin-bottom: 20px;
-        }
-
-        .tab-btn {
-            background: none;
-            border: none;
-            padding: 12px 20px;
-            color: var(--gray-600);
-            font-weight: 600;
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-            margin-bottom: -2px;
-            transition: all 0.3s ease;
-            font-family: 'Noto Sans TC', sans-serif;
-        }
-
-        .tab-btn:hover {
-            color: var(--primary);
-        }
-
-        .tab-btn.active {
-            color: var(--primary);
-            border-bottom-color: var(--primary);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
         .alert {
-            padding: 12px 16px;
-            border-radius: 8px;
+            padding: 10px 12px;
+            border-radius: 6px;
             margin-bottom: 15px;
-            font-size: 14px;
+            font-size: 12px;
             animation: slideIn 0.3s ease;
+            border-left: 4px solid;
         }
 
         .alert-success {
             background: #dcfce7;
             color: #166534;
-            border-left: 4px solid var(--success);
+            border-left-color: var(--success);
         }
 
         .alert-error {
             background: #fee2e2;
             color: #991b1b;
-            border-left: 4px solid var(--danger);
+            border-left-color: var(--danger);
         }
 
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 6px;
         }
 
         ::-webkit-scrollbar-track {
@@ -656,155 +592,108 @@
         ::-webkit-scrollbar-thumb:hover {
             background: var(--gray-400);
         }
-
-        .admin-badge {
-            display: inline-block;
-            background: var(--success);
-            color: white;
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 600;
-            margin-left: 8px;
-        }
-
-        .login-required {
-            display: inline-block;
-            font-size: 11px;
-            color: var(--danger);
-            margin-left: 8px;
-            font-weight: 600;
-        }
-
-        .admin-whitelist {
-            background: #f0f9ff;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-            border-left: 4px solid var(--primary-light);
-            font-size: 13px;
-            color: var(--gray-600);
-        }
-
-        .admin-whitelist strong {
-            display: block;
-            color: var(--primary);
-            margin-bottom: 8px;
-        }
-
-        .admin-whitelist p {
-            margin-bottom: 5px;
-        }
     </style>
 </head>
 <body>
-    <!-- 登入界面 -->
-    <div id="loginScreen" class="login-screen">
+    <!-- 登入頁面 -->
+    <div id="loginPage" class="page active">
         <div class="login-card">
             <div class="login-header">
                 <div class="login-title">📋 教務處</div>
-                <div class="login-subtitle">購買需求清單管理系統</div>
+                <div class="login-subtitle">購買需求清單</div>
             </div>
 
-            <div class="login-content">
-                <div class="login-description">
-                    用 Google 帳號登入
-                </div>
-                <div id="firebaseui-auth-container"></div>
-            </div>
+            <button class="google-btn" onclick="handleGoogleLogin()">
+                <span>🔐</span> 使用 Google 帳號登入
+            </button>
 
-            <div class="login-features">
+            <div class="features">
                 <strong>系統功能：</strong>
-                <div class="feature-item">訪客可查看所有清單</div>
-                <div class="feature-item">教務處人員可編輯資料</div>
+                <div class="feature-item">Google 帳號登入</div>
+                <div class="feature-item">所有人都能查看清單</div>
+                <div class="feature-item">教務處可編輯資料</div>
                 <div class="feature-item">自動記錄時間與人員</div>
-            </div>
-
-            <div class="admin-whitelist">
-                <strong>⚠️ 管理員白名單</strong>
-                <p>只有以下 Google 帳號可以新增、修改、刪除：</p>
-                <p id="adminListDisplay" style="font-family: monospace; background: white; padding: 8px; border-radius: 4px; margin-top: 8px;"></p>
-                <p style="margin-top: 8px; font-size: 12px; color: var(--gray-500);">其他帳號只能查看清單</p>
             </div>
         </div>
     </div>
 
-    <!-- 主界面 -->
-    <div id="mainScreen" class="main-screen">
-        <div class="container">
-            <header>
-                <div class="header-left">
-                    <h1>📋 教務處購買需求清單</h1>
-                    <p>協作管理購買物品 • 實時更新狀態</p>
+    <!-- 主頁面 -->
+    <div id="mainPage" class="page">
+        <header>
+            <div class="header-title">
+                <h1>📋 教務處購買清單</h1>
+                <p>協作管理購買物品</p>
+            </div>
+            <div class="header-user">
+                <div class="user-info-box">
+                    <div class="user-name" id="displayName">使用者</div>
+                    <div class="user-role" id="displayRole">角色</div>
                 </div>
-                <div class="header-right">
-                    <div class="user-info">
-                        <img id="userAvatar" class="user-avatar" />
-                        <div class="user-name" id="displayUserName">User</div>
-                        <div class="user-role" id="displayUserRole">User Role</div>
-                    </div>
-                    <button class="btn-logout" onclick="handleLogout()">登出</button>
-                </div>
-            </header>
+                <button class="btn-logout" onclick="handleLogout()">登出</button>
+            </div>
+        </header>
 
-            <div class="content-wrapper">
-                <!-- 新增需求卡片（管理員限用） -->
-                <div class="card" id="addFormCard" style="display:none;">
+        <div class="main-content">
+            <!-- 左側面板 -->
+            <div>
+                <!-- 新增需求 -->
+                <div class="card" id="addFormCard" style="display:none; margin-bottom: 20px;">
                     <h2>➕ 新增需求</h2>
                     <div id="addAlert"></div>
                     <form id="addForm">
                         <div class="form-group">
-                            <label for="itemName">物品名稱 *</label>
-                            <input type="text" id="itemName" required placeholder="例：印表機紙張">
+                            <label>物品名稱 *</label>
+                            <input type="text" id="itemName" required placeholder="例：紙張">
                         </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="quantity">數量 *</label>
+                                <label>數量 *</label>
                                 <input type="number" id="quantity" min="1" required value="1">
                             </div>
                             <div class="form-group">
-                                <label for="unit">單位 *</label>
-                                <input type="text" id="unit" required placeholder="例：包、台、個">
+                                <label>單位 *</label>
+                                <input type="text" id="unit" required placeholder="包">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="description">描述</label>
-                            <textarea id="description" placeholder="補充說明（選填）"></textarea>
+                            <label>描述</label>
+                            <textarea id="description" placeholder="補充說明"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="requester">提出人 *</label>
-                            <input type="text" id="requester" required placeholder="例：李老師、行政室">
+                            <label>提出人 *</label>
+                            <input type="text" id="requester" required placeholder="李老師">
                         </div>
-                        <button type="submit" class="btn-primary">新增到清單</button>
+                        <button type="submit" class="btn-primary">新增</button>
                     </form>
                 </div>
 
-                <!-- 統計面板 -->
+                <!-- 統計 -->
                 <div class="card">
-                    <h2>📊 統計資訊</h2>
+                    <h2>📊 統計</h2>
                     <div class="stats">
                         <div class="stat-card">
                             <div class="stat-number" id="totalCount">0</div>
-                            <div class="stat-label">待購物品</div>
+                            <div class="stat-label">待購</div>
                         </div>
                         <div class="stat-card">
                             <div class="stat-number" id="purchasedCount">0</div>
-                            <div class="stat-label">已購物品</div>
+                            <div class="stat-label">已購</div>
                         </div>
-                    </div>
-                    <div class="tabs" style="margin-bottom: 0; border: none;">
-                        <button class="tab-btn active" onclick="switchTab('all')">全部清單</button>
-                        <button class="tab-btn" onclick="switchTab('pending')">待購</button>
-                        <button class="tab-btn" onclick="switchTab('purchased')">已購</button>
                     </div>
                 </div>
             </div>
 
-            <!-- 清單卡片 -->
+            <!-- 右側面板：清單 -->
             <div class="card">
                 <h2>📦 需求清單</h2>
+                <div class="tabs">
+                    <button class="tab-btn active" onclick="switchTab('all')">全部</button>
+                    <button class="tab-btn" onclick="switchTab('pending')">待購</button>
+                    <button class="tab-btn" onclick="switchTab('purchased')">已購</button>
+                </div>
+                
                 <div id="tabAll" class="tab-content active">
-                    <div id="listContainer" class="list-container"></div>
+                    <div id="listAll" class="list-container"></div>
                 </div>
                 <div id="tabPending" class="tab-content">
                     <div id="listPending" class="list-container"></div>
@@ -816,7 +705,7 @@
         </div>
     </div>
 
-    <!-- 購買狀態 Modal -->
+    <!-- 購買 Modal -->
     <div id="purchaseModal" class="modal">
         <div class="modal-content">
             <button class="modal-close" onclick="closePurchaseModal()">×</button>
@@ -827,22 +716,22 @@
                     <input type="text" id="purchaseItemName" disabled style="background: var(--gray-100);">
                 </div>
                 <div class="form-group">
-                    <label for="purchasedDate">購買日期 *</label>
+                    <label>購買日期 *</label>
                     <input type="date" id="purchasedDate" required>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="purchasedQuantity">實際購買數量 *</label>
+                        <label>購買數量 *</label>
                         <input type="number" id="purchasedQuantity" min="1" required>
                     </div>
                     <div class="form-group">
-                        <label for="purchasePrice">總金額</label>
-                        <input type="number" id="purchasePrice" min="0" step="0.01" placeholder="選填">
+                        <label>總金額</label>
+                        <input type="number" id="purchasePrice" min="0" step="0.01">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="purchaseNotes">備註</label>
-                    <textarea id="purchaseNotes" placeholder="例：在〇〇〇店購買"></textarea>
+                    <label>備註</label>
+                    <textarea id="purchaseNotes" placeholder="購買地點"></textarea>
                 </div>
                 <button type="submit" class="btn-primary">確認購買</button>
             </form>
@@ -853,13 +742,9 @@
     <script src="https://www.gstatic.com/firebaseapps/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebaseapps/8.10.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebaseapps/8.10.1/firebase-auth.js"></script>
-    
-    <!-- FirebaseUI -->
-    <script src="https://www.gstatic.com/firebaseapps/ui/6.0.0/firebase-ui-auth.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebaseapps/ui/6.0.0/firebase-ui-auth.css" />
 
     <script>
-        // ===== Firebase 設定 =====
+        // Firebase 設定
         const firebaseConfig = {
             apiKey: "AIzaSyDvhHzxfr3NqFsnirfpIazaYxTcbrOhsyk",
             authDomain: "sjps-academicaffairspurchasing.firebaseapp.com",
@@ -874,13 +759,10 @@
         const db = firebase.firestore();
         const auth = firebase.auth();
 
-        // ===== 管理員白名單 =====
-        // 修改這裡！添加教務處人員的 Google 帳號
+        // 管理員白名單 - 編輯這裡添加教務處人員帳號
         const ADMIN_WHITELIST = [
-            'issac.tw.edu@gmail.com',  // 範例
-            // 添加你的帳號，例如：
-            // 'teacher1@gmail.com',
-            // 'teacher2@gmail.com',
+            'issac.tw.edu@gmail.com',
+            // 添加更多: 'teacher@gmail.com',
         ];
 
         let currentUser = null;
@@ -888,101 +770,45 @@
         let items = [];
         let currentEditId = null;
 
-        // ===== DOM 元素 =====
-        const loginScreen = document.getElementById('loginScreen');
-        const mainScreen = document.getElementById('mainScreen');
-        const addForm = document.getElementById('addForm');
-        const addFormCard = document.getElementById('addFormCard');
-        const listContainer = document.getElementById('listContainer');
-        const listPending = document.getElementById('listPending');
-        const listPurchased = document.getElementById('listPurchased');
-        const purchaseModal = document.getElementById('purchaseModal');
-        const purchaseForm = document.getElementById('purchaseForm');
+        // 初始化事件監聽
+        document.getElementById('addForm').addEventListener('submit', handleAddItem);
+        document.getElementById('purchaseForm').addEventListener('submit', handlePurchase);
 
-        // ===== FirebaseUI 設定 =====
-        const uiConfig = {
-            callbacks: {
-                uiShown: function() {
-                    // UI 已顯示
-                }
-            },
-            signInFlow: 'popup',
-            signInSuccessUrl: window.location.href,
-            signInOptions: [
-                firebase.auth.GoogleAuthProvider.PROVIDER_ID
-            ],
-            tosUrl: '#',
-            privacyPolicyUrl: '#'
-        };
-
-        const ui = new firebaseui.auth.AuthUI(auth);
-
-        // 初始化
-        addForm.addEventListener('submit', handleAddItem);
-        purchaseForm.addEventListener('submit', handlePurchase);
-
-        // 顯示管理員白名單
-        updateAdminWhitelistDisplay();
-
-        // 檢查登入狀態
+        // Firebase 認證狀態監聽
         auth.onAuthStateChanged(user => {
             if (user) {
                 currentUser = user;
                 isAdmin = ADMIN_WHITELIST.includes(user.email);
-                showMainScreen();
+                showMainPage();
                 loadItems();
-            } else {
-                showLoginScreen();
             }
         });
 
-        // ===== 登入相關函數 =====
-        function showLoginScreen() {
-            loginScreen.classList.remove('hidden');
-            mainScreen.classList.remove('active');
-            
-            if (!ui.isPendingRedirect()) {
-                ui.start('#firebaseui-auth-container', uiConfig);
-            }
+        function handleGoogleLogin() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithPopup(provider)
+                .catch(error => alert('登入失敗: ' + error.message));
         }
 
-        function showMainScreen() {
-            loginScreen.classList.add('hidden');
-            mainScreen.classList.add('active');
+        function showMainPage() {
+            document.getElementById('loginPage').classList.remove('active');
+            document.getElementById('mainPage').classList.add('active');
             
-            // 更新使用者資訊
-            document.getElementById('userAvatar').src = currentUser.photoURL || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDgiIGhlaWdodD0iNDgiIHZpZXdCb3g9IjAgMCA0OCA0OCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48Y2lyY2xlIGN4PSIyNCIgY3k9IjI0IiByPSIyNCIgZmlsbD0iI2UyZThmMCIvPjwvc3ZnPg==';
-            document.getElementById('displayUserName').textContent = currentUser.displayName || currentUser.email;
-            
+            document.getElementById('displayName').textContent = currentUser.displayName || currentUser.email;
+            const roleEl = document.getElementById('displayRole');
             if (isAdmin) {
-                document.getElementById('displayUserRole').textContent = '管理員';
-                document.getElementById('displayUserRole').innerHTML += ' <span class="admin-badge">已驗證</span>';
-                addFormCard.style.display = 'block';
+                roleEl.innerHTML = '管理員 <span class="admin-badge">✓</span>';
+                document.getElementById('addFormCard').style.display = 'block';
             } else {
-                document.getElementById('displayUserRole').textContent = '訪客（查看模式）';
-                addFormCard.style.display = 'none';
+                roleEl.textContent = '訪客';
             }
         }
 
-        function handleLogout() {
-            auth.signOut().then(() => {
-                currentUser = null;
-                isAdmin = false;
-                items = [];
-                showLoginScreen();
-            });
-        }
-
-        // ===== 資料操作函數 =====
         function handleAddItem(e) {
             e.preventDefault();
-            
-            if (!isAdmin) {
-                alert('只有管理員可以新增物品');
-                return;
-            }
+            if (!isAdmin) return alert('只有管理員可以新增');
 
-            const itemData = {
+            db.collection('items').add({
                 name: document.getElementById('itemName').value,
                 quantity: parseInt(document.getElementById('quantity').value),
                 unit: document.getElementById('unit').value,
@@ -992,23 +818,12 @@
                 createdAt: new Date().toISOString(),
                 createdDate: new Date().toLocaleDateString('zh-TW'),
                 createdBy: currentUser.email,
-                createdByName: currentUser.displayName || currentUser.email,
-                purchasedDate: null,
-                purchasedQuantity: null,
-                purchasePrice: null,
-                purchaseNotes: null,
-                purchasedBy: null
-            };
-
-            db.collection('items').add(itemData)
-                .then(() => {
-                    showAlert('addAlert', '✓ 已新增到清單', 'success');
-                    addForm.reset();
-                    loadItems();
-                })
-                .catch(error => {
-                    showAlert('addAlert', '✗ 新增失敗: ' + error.message, 'error');
-                });
+                createdByName: currentUser.displayName || currentUser.email
+            }).then(() => {
+                showAlert('addAlert', '✓ 已新增', 'success');
+                document.getElementById('addForm').reset();
+                loadItems();
+            }).catch(error => showAlert('addAlert', '✗ 失敗', 'error'));
         }
 
         function loadItems() {
@@ -1017,63 +832,40 @@
                 .onSnapshot(snapshot => {
                     items = [];
                     snapshot.forEach(doc => {
-                        items.push({
-                            id: doc.id,
-                            ...doc.data()
-                        });
+                        items.push({ id: doc.id, ...doc.data() });
                     });
-                    renderLists();
+                    renderAllLists();
                     updateStats();
-                }, error => {
-                    console.error('加載失敗:', error);
-                    listContainer.innerHTML = '<div class="empty-state">✗ 加載資料失敗</div>';
                 });
         }
 
-        function renderLists() {
-            const pending = items.filter(item => item.status === 'pending');
-            const purchased = items.filter(item => item.status === 'purchased');
+        function renderAllLists() {
+            const all = items;
+            const pending = items.filter(i => i.status === 'pending');
+            const purchased = items.filter(i => i.status === 'purchased');
 
-            listContainer.innerHTML = items.length === 0 
-                ? '<div class="empty-state"><div class="empty-state-icon">📭</div>還沒有任何需求</div>'
-                : items.map(item => renderItem(item)).join('');
-
-            listPending.innerHTML = pending.length === 0
-                ? '<div class="empty-state"><div class="empty-state-icon">✓</div>沒有待購的物品</div>'
-                : pending.map(item => renderItem(item)).join('');
-
-            listPurchased.innerHTML = purchased.length === 0
-                ? '<div class="empty-state"><div class="empty-state-icon">📦</div>還沒有已購的物品</div>'
-                : purchased.map(item => renderItem(item)).join('');
+            document.getElementById('listAll').innerHTML = all.length ? all.map(renderItem).join('') : '<div class="empty-state">📭 沒有清單</div>';
+            document.getElementById('listPending').innerHTML = pending.length ? pending.map(renderItem).join('') : '<div class="empty-state">✓ 無</div>';
+            document.getElementById('listPurchased').innerHTML = purchased.length ? purchased.map(renderItem).join('') : '<div class="empty-state">📦 無</div>';
         }
 
         function renderItem(item) {
-            const createdDate = new Date(item.createdAt).toLocaleDateString('zh-TW', 
-                { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
+            const date = new Date(item.createdAt).toLocaleDateString('zh-TW', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
             
             let purchaseInfo = '';
             if (item.status === 'purchased') {
                 purchaseInfo = `
-                    <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--gray-200);">
-                        <strong>購買資訊：</strong>
-                        <div style="margin-top: 5px;">
-                            購買日期: ${item.purchasedDate}<br>
-                            實購數量: ${item.purchasedQuantity} ${item.unit}
-                            ${item.purchasePrice ? `<br>金額: NT$${parseFloat(item.purchasePrice).toLocaleString()}` : ''}
-                            ${item.purchaseNotes ? `<br>備註: ${item.purchaseNotes}` : ''}
-                        </div>
+                    <div style="margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--gray-200);">
+                        購買: ${item.purchasedDate} | 數量: ${item.purchasedQuantity} ${item.unit}
+                        ${item.purchasePrice ? `| 金額: NT$${parseFloat(item.purchasePrice).toLocaleString()}` : ''}
                     </div>
                 `;
             }
 
-            const actionButtons = isAdmin
-                ? `
-                    ${item.status === 'pending' 
-                        ? `<button class="btn-success btn-small" onclick="openPurchaseModal('${item.id}', '${escapeHtml(item.name)}', ${item.quantity})">標記為已購</button>` 
-                        : ''}
-                    <button class="btn-danger btn-small" onclick="deleteItem('${item.id}')">刪除</button>
-                `
-                : `<span class="login-required">需登入才能編輯</span>`;
+            const actions = isAdmin ? `
+                ${item.status === 'pending' ? `<button class="btn-success" onclick="openPurchaseModal('${item.id}', '${escapeHtml(item.name)}', ${item.quantity})">已購</button>` : ''}
+                <button class="btn-danger" onclick="deleteItem('${item.id}')">刪除</button>
+            ` : '';
 
             return `
                 <div class="list-item ${item.status === 'purchased' ? 'purchased' : ''}">
@@ -1084,42 +876,35 @@
                         </span>
                     </div>
                     <div class="item-details">
-                        <strong>需求數量：</strong> ${item.quantity} ${item.unit}<br>
-                        ${item.description ? `<strong>說明：</strong> ${escapeHtml(item.description)}<br>` : ''}
-                        <strong>提出人：</strong> ${escapeHtml(item.requester)}
+                        數量: ${item.quantity} ${item.unit} | 提出: ${escapeHtml(item.requester)}
+                        ${item.description ? `<br>說明: ${escapeHtml(item.description)}` : ''}
                     </div>
                     ${purchaseInfo}
-                    <div class="meta-info">
-                        提出時間: ${createdDate} | 提出者: ${escapeHtml(item.createdByName || item.createdBy || '未知')}
-                    </div>
-                    <div class="item-actions">
-                        ${actionButtons}
-                    </div>
+                    <div class="meta-info">${date} | ${escapeHtml(item.createdByName || item.createdBy)}</div>
+                    <div class="item-actions">${actions}</div>
                 </div>
             `;
         }
 
-        function openPurchaseModal(id, name, quantity) {
+        function openPurchaseModal(id, name, qty) {
             currentEditId = id;
             document.getElementById('purchaseItemName').value = name;
-            document.getElementById('purchasedQuantity').value = quantity;
+            document.getElementById('purchasedQuantity').value = qty;
             document.getElementById('purchasedDate').valueAsDate = new Date();
             document.getElementById('purchasePrice').value = '';
             document.getElementById('purchaseNotes').value = '';
-            purchaseModal.classList.add('active');
+            document.getElementById('purchaseModal').classList.add('active');
         }
 
         function closePurchaseModal() {
-            purchaseModal.classList.remove('active');
-            currentEditId = null;
+            document.getElementById('purchaseModal').classList.remove('active');
         }
 
         function handlePurchase(e) {
             e.preventDefault();
-
             if (!isAdmin || !currentEditId) return;
 
-            const updateData = {
+            db.collection('items').doc(currentEditId).update({
                 status: 'purchased',
                 purchasedDate: document.getElementById('purchasedDate').value,
                 purchasedQuantity: parseInt(document.getElementById('purchasedQuantity').value),
@@ -1127,81 +912,55 @@
                 purchaseNotes: document.getElementById('purchaseNotes').value || null,
                 purchasedBy: currentUser.email,
                 updatedAt: new Date().toISOString()
-            };
-
-            db.collection('items').doc(currentEditId).update(updateData)
-                .then(() => {
-                    closePurchaseModal();
-                    loadItems();
-                })
-                .catch(error => {
-                    alert('更新失敗: ' + error.message);
-                });
+            }).then(() => {
+                closePurchaseModal();
+                loadItems();
+            }).catch(error => alert('更新失敗'));
         }
 
         function deleteItem(id) {
-            if (!isAdmin) {
-                alert('只有管理員可以刪除');
-                return;
-            }
-            
-            if (!confirm('確定要刪除此項目嗎？')) return;
+            if (!isAdmin) return alert('只有管理員可以刪除');
+            if (!confirm('確定刪除？')) return;
 
             db.collection('items').doc(id).delete()
-                .then(() => {
-                    loadItems();
-                })
-                .catch(error => {
-                    alert('刪除失敗: ' + error.message);
-                });
+                .then(() => loadItems())
+                .catch(error => alert('刪除失敗'));
         }
 
         function updateStats() {
-            const pending = items.filter(item => item.status === 'pending').length;
-            const purchased = items.filter(item => item.status === 'purchased').length;
-            document.getElementById('totalCount').textContent = pending;
-            document.getElementById('purchasedCount').textContent = purchased;
+            document.getElementById('totalCount').textContent = items.filter(i => i.status === 'pending').length;
+            document.getElementById('purchasedCount').textContent = items.filter(i => i.status === 'purchased').length;
         }
 
         function switchTab(tab) {
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             event.target.classList.add('active');
             document.getElementById('tab' + tab.charAt(0).toUpperCase() + tab.slice(1)).classList.add('active');
         }
 
-        function showAlert(elementId, message, type) {
-            const alertEl = document.getElementById(elementId);
-            alertEl.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
-            setTimeout(() => {
-                alertEl.innerHTML = '';
-            }, 4000);
+        function showAlert(id, msg, type) {
+            const el = document.getElementById(id);
+            el.innerHTML = `<div class="alert alert-${type}">${msg}</div>`;
+            setTimeout(() => el.innerHTML = '', 3000);
         }
 
         function escapeHtml(text) {
-            const map = {
-                '&': '&amp;',
-                '<': '&lt;',
-                '>': '&gt;',
-                '"': '&quot;',
-                "'": '&#039;'
-            };
+            const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
             return text.replace(/[&<>"']/g, m => map[m]);
         }
 
-        function updateAdminWhitelistDisplay() {
-            const display = document.getElementById('adminListDisplay');
-            display.textContent = ADMIN_WHITELIST.join('\n');
+        function handleLogout() {
+            auth.signOut().then(() => {
+                document.getElementById('mainPage').classList.remove('active');
+                document.getElementById('loginPage').classList.add('active');
+                items = [];
+            });
         }
 
-        // Modal 事件
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closePurchaseModal();
-        });
-
-        purchaseModal.addEventListener('click', (e) => {
-            if (e.target === purchaseModal) closePurchaseModal();
+        // Modal 背景點擊關閉
+        document.getElementById('purchaseModal').addEventListener('click', e => {
+            if (e.target.id === 'purchaseModal') closePurchaseModal();
         });
     </script>
 </body>
