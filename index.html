@@ -6,894 +6,480 @@
     <title>教務處購買清單</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            --primary: #1e40af;
-            --primary-light: #3b82f6;
-            --success: #059669;
-            --danger: #dc2626;
-            --gray-50: #f9fafb;
-            --gray-100: #f3f4f6;
-            --gray-200: #e5e7eb;
-            --gray-300: #d1d5db;
-            --gray-600: #4b5563;
-            --gray-900: #111827;
+            --primary: #1e40af; --primary-light: #3b82f6;
+            --success: #059669; --danger: #dc2626;
+            --gray-50: #f9fafb; --gray-100: #f3f4f6; --gray-200: #e5e7eb;
+            --gray-300: #d1d5db; --gray-600: #4b5563; --gray-900: #111827;
         }
-
-        body {
-            font-family: 'Noto Sans TC', sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
-            min-height: 100vh;
-            color: var(--gray-900);
-        }
-
-        .page {
-            display: none;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        #loginPage {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .login-card {
-            background: white;
-            border-radius: 16px;
-            padding: 50px 40px;
-            max-width: 400px;
-            width: 100%;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            animation: slideUp 0.5s ease;
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .login-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .login-title {
-            font-size: 32px;
-            color: var(--primary);
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
-
-        .login-subtitle {
-            color: var(--gray-600);
-            font-size: 14px;
-        }
-
-        .google-btn {
-            width: 100%;
-            padding: 12px;
-            background: white;
-            border: 2px solid var(--gray-200);
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 20px;
-            font-family: 'Noto Sans TC', sans-serif;
-        }
-
-        .google-btn:hover {
-            background: var(--gray-50);
-            border-color: var(--gray-300);
-        }
-
-        .features {
-            background: #f0f9ff;
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 4px solid var(--primary-light);
-        }
-
-        .features strong {
-            display: block;
-            color: var(--primary);
-            margin-bottom: 12px;
-            font-size: 14px;
-        }
-
-        .feature-item {
-            font-size: 13px;
-            color: var(--gray-600);
-            margin-bottom: 8px;
-            padding-left: 20px;
-            position: relative;
-        }
-
-        .feature-item::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: var(--success);
-            font-weight: bold;
-        }
-
-        #mainPage {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding-bottom: 40px;
-        }
-
-        header {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .header-title h1 {
-            color: var(--primary);
-            font-size: 24px;
-            margin-bottom: 5px;
-        }
-
-        .header-title p {
-            color: var(--gray-600);
-            font-size: 13px;
-        }
-
-        .header-user {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .user-info-box {
-            text-align: right;
-        }
-
-        .user-name {
-            font-weight: 600;
-            color: var(--gray-900);
-            font-size: 14px;
-        }
-
-        .user-role {
-            font-size: 12px;
-            color: var(--gray-600);
-        }
-
-        .admin-badge {
-            display: inline-block;
-            background: var(--success);
-            color: white;
-            padding: 2px 6px;
-            border-radius: 12px;
-            font-size: 10px;
-            font-weight: 600;
-            margin-left: 5px;
-        }
-
-        .btn-logout {
-            padding: 8px 16px;
-            background: var(--danger);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 13px;
-            transition: all 0.3s ease;
-            font-family: 'Noto Sans TC', sans-serif;
-        }
-
-        .btn-logout:hover {
-            background: #b91c1c;
-        }
-
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 30px;
-        }
-
-        @media (max-width: 968px) {
-            .main-content { grid-template-columns: 1fr; }
-            header { flex-direction: column; align-items: flex-start; }
-            .header-user { width: 100%; justify-content: space-between; }
-        }
-
-        .card {
-            background: white;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .card h2 {
-            color: var(--primary);
-            font-size: 18px;
-            margin-bottom: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--gray-900);
-            font-size: 13px;
-        }
-
-        input, textarea, select {
-            width: 100%;
-            padding: 10px 12px;
-            border: 2px solid var(--gray-200);
-            border-radius: 8px;
-            font-family: 'Noto Sans TC', sans-serif;
-            font-size: 13px;
-            transition: all 0.3s ease;
-        }
-
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
-        }
-
+        body { font-family: 'Noto Sans TC', sans-serif; background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%); min-height: 100vh; color: var(--gray-900); }
+        .page { display: none; min-height: 100vh; padding: 20px; }
+        .page.active { display: block; }
+        #loginPage { display: flex; align-items: center; justify-content: center; }
+        .login-card { background: white; border-radius: 16px; padding: 50px 40px; max-width: 400px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.3); animation: slideUp 0.5s ease; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .login-header { text-align: center; margin-bottom: 40px; }
+        .login-title { font-size: 32px; color: var(--primary); margin-bottom: 10px; font-weight: 700; }
+        .login-subtitle { color: var(--gray-600); font-size: 14px; }
+        .google-btn { width: 100%; padding: 12px; background: white; border: 2px solid var(--gray-200); border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 14px; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 15px; font-family: 'Noto Sans TC', sans-serif; }
+        .google-btn:hover { background: var(--gray-50); border-color: var(--gray-300); }
+        .google-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+        .login-error { background: #fee2e2; color: #991b1b; border-left: 4px solid var(--danger); padding: 10px 12px; border-radius: 6px; font-size: 12px; margin-bottom: 15px; display: none; }
+        .features { background: #f0f9ff; padding: 20px; border-radius: 8px; border-left: 4px solid var(--primary-light); }
+        .features strong { display: block; color: var(--primary); margin-bottom: 12px; font-size: 14px; }
+        .feature-item { font-size: 13px; color: var(--gray-600); margin-bottom: 8px; padding-left: 20px; position: relative; }
+        .feature-item::before { content: '✓'; position: absolute; left: 0; color: var(--success); font-weight: bold; }
+        #mainPage { max-width: 1200px; margin: 0 auto; padding-bottom: 40px; }
+        header { background: white; border-radius: 12px; padding: 25px; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+        .header-title h1 { color: var(--primary); font-size: 24px; margin-bottom: 5px; }
+        .header-title p { color: var(--gray-600); font-size: 13px; }
+        .header-user { display: flex; align-items: center; gap: 15px; }
+        .user-info-box { text-align: right; }
+        .user-name { font-weight: 600; color: var(--gray-900); font-size: 14px; }
+        .user-role { font-size: 12px; color: var(--gray-600); }
+        .admin-badge { display: inline-block; background: var(--success); color: white; padding: 2px 6px; border-radius: 12px; font-size: 10px; font-weight: 600; margin-left: 5px; }
+        .btn-logout { padding: 8px 16px; background: var(--danger); color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 13px; transition: all 0.3s ease; font-family: 'Noto Sans TC', sans-serif; }
+        .btn-logout:hover { background: #b91c1c; }
+        .main-content { display: grid; grid-template-columns: 1fr 2fr; gap: 30px; }
+        @media (max-width: 968px) { .main-content { grid-template-columns: 1fr; } header { flex-direction: column; align-items: flex-start; } .header-user { width: 100%; justify-content: space-between; } }
+        .card { background: white; border-radius: 12px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .card h2 { color: var(--primary); font-size: 18px; margin-bottom: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 8px; font-weight: 500; color: var(--gray-900); font-size: 13px; }
+        input, textarea, select { width: 100%; padding: 10px 12px; border: 2px solid var(--gray-200); border-radius: 8px; font-family: 'Noto Sans TC', sans-serif; font-size: 13px; transition: all 0.3s ease; }
+        input:focus, textarea:focus, select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1); }
         textarea { resize: vertical; min-height: 60px; }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        button {
-            padding: 10px 16px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 13px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: 'Noto Sans TC', sans-serif;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            color: white;
-            width: 100%;
-        }
-
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        button { padding: 10px 16px; border: none; border-radius: 8px; font-weight: 600; font-size: 13px; cursor: pointer; transition: all 0.3s ease; font-family: 'Noto Sans TC', sans-serif; }
+        .btn-primary { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); color: white; width: 100%; }
         .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(30, 64, 175, 0.3); }
-
-        .btn-success {
-            background: var(--success);
-            color: white;
-            padding: 6px 10px;
-            font-size: 12px;
-        }
-
+        .btn-success { background: var(--success); color: white; padding: 6px 10px; font-size: 12px; }
         .btn-success:hover { background: #047857; }
-
-        .btn-danger {
-            background: var(--danger);
-            color: white;
-            padding: 6px 10px;
-            font-size: 12px;
-        }
-
+        .btn-danger { background: var(--danger); color: white; padding: 6px 10px; font-size: 12px; }
         .btn-danger:hover { background: #b91c1c; }
-
-        .stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .stat-card {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            color: white;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-        }
-
+        .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .stat-card { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%); color: white; padding: 15px; border-radius: 8px; text-align: center; }
         .stat-number { font-size: 24px; font-weight: 700; margin-bottom: 5px; }
         .stat-label { font-size: 12px; opacity: 0.9; }
-
-        .tabs {
-            display: flex;
-            gap: 0;
-            border-bottom: 2px solid var(--gray-200);
-            margin-bottom: 20px;
-        }
-
-        .tab-btn {
-            background: none;
-            border: none;
-            padding: 12px 16px;
-            color: var(--gray-600);
-            font-weight: 600;
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-            margin-bottom: -2px;
-            transition: all 0.3s ease;
-            font-family: 'Noto Sans TC', sans-serif;
-            font-size: 13px;
-        }
-
+        .tabs { display: flex; gap: 0; border-bottom: 2px solid var(--gray-200); margin-bottom: 20px; }
+        .tab-btn { background: none; border: none; padding: 12px 16px; color: var(--gray-600); font-weight: 600; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all 0.3s ease; font-family: 'Noto Sans TC', sans-serif; font-size: 13px; }
         .tab-btn:hover { color: var(--primary); }
         .tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); }
-
-        /* 修復：添加 tab-content 樣式 */
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
         .list-container { max-height: 500px; overflow-y: auto; }
-
-        .list-item {
-            background: var(--gray-50);
-            border-left: 4px solid var(--primary);
-            padding: 12px;
-            margin-bottom: 12px;
-            border-radius: 6px;
-            animation: slideIn 0.3s ease;
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .list-item.purchased {
-            border-left-color: var(--success);
-            background: #f0fdf4;
-        }
-
-        .item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 8px;
-            gap: 10px;
-        }
-
-        .item-title {
-            font-weight: 600;
-            color: var(--gray-900);
-            font-size: 14px;
-            flex: 1;
-        }
-
-        .item-status {
-            display: inline-block;
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 600;
-            white-space: nowrap;
-        }
-
+        .list-item { background: var(--gray-50); border-left: 4px solid var(--primary); padding: 12px; margin-bottom: 12px; border-radius: 6px; animation: slideIn 0.3s ease; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .list-item.purchased { border-left-color: var(--success); background: #f0fdf4; }
+        .item-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; gap: 10px; }
+        .item-title { font-weight: 600; color: var(--gray-900); font-size: 14px; flex: 1; }
+        .item-status { display: inline-block; padding: 3px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; white-space: nowrap; }
         .status-pending { background: #fef3c7; color: #92400e; }
         .status-purchased { background: #dcfce7; color: #166534; }
-
-        .item-details {
-            font-size: 12px;
-            color: var(--gray-600);
-            margin-bottom: 8px;
-            line-height: 1.4;
-        }
-
+        .item-details { font-size: 12px; color: var(--gray-600); margin-bottom: 8px; line-height: 1.4; }
         .item-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-
-        .meta-info {
-            font-size: 11px;
-            color: var(--gray-600);
-            margin-top: 8px;
-            padding-top: 8px;
-            border-top: 1px solid var(--gray-200);
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 30px 20px;
-            color: var(--gray-600);
-            font-size: 13px;
-        }
-
-        .empty-state-icon { font-size: 36px; margin-bottom: 10px; }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-
+        .meta-info { font-size: 11px; color: var(--gray-600); margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--gray-200); }
+        .empty-state { text-align: center; padding: 30px 20px; color: var(--gray-600); font-size: 13px; }
+        .loading-state { text-align: center; padding: 30px 20px; color: var(--gray-600); font-size: 13px; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
         .modal.active { display: flex; }
-
-        .modal-content {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            max-width: 450px;
-            width: 100%;
-            max-height: 80vh;
-            overflow-y: auto;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            position: relative;
-        }
-
-        .modal-header {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 15px; right: 15px;
-            background: none;
-            border: none;
-            font-size: 28px;
-            cursor: pointer;
-            color: var(--gray-600);
-            padding: 0;
-        }
-
+        .modal-content { background: white; border-radius: 12px; padding: 30px; max-width: 450px; width: 100%; max-height: 80vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.3); position: relative; }
+        .modal-header { font-size: 18px; font-weight: 700; color: var(--primary); margin-bottom: 20px; }
+        .modal-close { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 28px; cursor: pointer; color: var(--gray-600); padding: 0; }
         .modal-close:hover { color: var(--gray-900); }
-
-        .alert {
-            padding: 10px 12px;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            font-size: 12px;
-            animation: slideIn 0.3s ease;
-            border-left: 4px solid;
-        }
-
+        .alert { padding: 10px 12px; border-radius: 6px; margin-bottom: 15px; font-size: 12px; animation: slideIn 0.3s ease; border-left: 4px solid; }
         .alert-success { background: #dcfce7; color: #166534; border-left-color: var(--success); }
         .alert-error { background: #fee2e2; color: #991b1b; border-left-color: var(--danger); }
-
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: var(--gray-100); border-radius: 10px; }
         ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--gray-400); }
     </style>
 </head>
 <body>
-    <!-- 登入頁面 -->
-    <div id="loginPage" class="page active">
-        <div class="login-card">
-            <div class="login-header">
-                <div class="login-title">📋 教務處</div>
-                <div class="login-subtitle">購買需求清單</div>
-            </div>
 
-            <button class="google-btn" onclick="handleGoogleLogin()">
-                <span>🔐</span> 使用 Google 帳號登入
-            </button>
-
-            <div class="features">
-                <strong>系統功能：</strong>
-                <div class="feature-item">Google 帳號登入</div>
-                <div class="feature-item">所有人都能查看清單</div>
-                <div class="feature-item">教務處可編輯資料</div>
-                <div class="feature-item">自動記錄時間與人員</div>
-            </div>
+<!-- 登入頁面 -->
+<div id="loginPage" class="page active">
+    <div class="login-card">
+        <div class="login-header">
+            <div class="login-title">📋 教務處</div>
+            <div class="login-subtitle">購買需求清單</div>
+        </div>
+        <div id="loginError" class="login-error"></div>
+        <button class="google-btn" id="loginBtn" onclick="handleGoogleLogin()">
+            <span>🔐</span> 使用 Google 帳號登入
+        </button>
+        <div class="features">
+            <strong>系統功能：</strong>
+            <div class="feature-item">Google 帳號登入</div>
+            <div class="feature-item">所有人都能查看清單</div>
+            <div class="feature-item">教務處可編輯資料</div>
+            <div class="feature-item">自動記錄時間與人員</div>
         </div>
     </div>
+</div>
 
-    <!-- 主頁面 -->
-    <div id="mainPage" class="page">
-        <header>
-            <div class="header-title">
-                <h1>📋 教務處購買清單</h1>
-                <p>協作管理購買物品</p>
+<!-- 主頁面 -->
+<div id="mainPage" class="page">
+    <header>
+        <div class="header-title">
+            <h1>📋 教務處購買清單</h1>
+            <p>協作管理購買物品</p>
+        </div>
+        <div class="header-user">
+            <div class="user-info-box">
+                <div class="user-name" id="displayName">使用者</div>
+                <div class="user-role" id="displayRole">角色</div>
             </div>
-            <div class="header-user">
-                <div class="user-info-box">
-                    <div class="user-name" id="displayName">使用者</div>
-                    <div class="user-role" id="displayRole">角色</div>
-                </div>
-                <button class="btn-logout" onclick="handleLogout()">登出</button>
-            </div>
-        </header>
+            <button class="btn-logout" onclick="handleLogout()">登出</button>
+        </div>
+    </header>
 
-        <div class="main-content">
-            <!-- 左側面板 -->
-            <div>
-                <!-- 新增需求 -->
-                <div class="card" id="addFormCard" style="display:none; margin-bottom: 20px;">
-                    <h2>➕ 新增需求</h2>
-                    <div id="addAlert"></div>
-                    <form id="addForm">
+    <div class="main-content">
+        <div>
+            <div class="card" id="addFormCard" style="display:none; margin-bottom: 20px;">
+                <h2>➕ 新增需求</h2>
+                <div id="addAlert"></div>
+                <form id="addForm">
+                    <div class="form-group">
+                        <label>物品名稱 *</label>
+                        <input type="text" id="itemName" required placeholder="例：紙張">
+                    </div>
+                    <div class="form-row">
                         <div class="form-group">
-                            <label>物品名稱 *</label>
-                            <input type="text" id="itemName" required placeholder="例：紙張">
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>數量 *</label>
-                                <input type="number" id="quantity" min="1" required value="1">
-                            </div>
-                            <div class="form-group">
-                                <label>單位 *</label>
-                                <input type="text" id="unit" required placeholder="包">
-                            </div>
+                            <label>數量 *</label>
+                            <input type="number" id="quantity" min="1" required value="1">
                         </div>
                         <div class="form-group">
-                            <label>描述</label>
-                            <textarea id="description" placeholder="補充說明"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>提出人 *</label>
-                            <input type="text" id="requester" required placeholder="李老師">
-                        </div>
-                        <button type="submit" class="btn-primary">新增</button>
-                    </form>
-                </div>
-
-                <!-- 統計 -->
-                <div class="card">
-                    <h2>📊 統計</h2>
-                    <div class="stats">
-                        <div class="stat-card">
-                            <div class="stat-number" id="totalCount">0</div>
-                            <div class="stat-label">待購</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="stat-number" id="purchasedCount">0</div>
-                            <div class="stat-label">已購</div>
+                            <label>單位 *</label>
+                            <input type="text" id="unit" required placeholder="包">
                         </div>
                     </div>
-                </div>
+                    <div class="form-group">
+                        <label>描述</label>
+                        <textarea id="description" placeholder="補充說明"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>提出人 *</label>
+                        <input type="text" id="requester" required placeholder="李老師">
+                    </div>
+                    <button type="submit" class="btn-primary">新增</button>
+                </form>
             </div>
 
-            <!-- 右側面板：清單 -->
             <div class="card">
-                <h2>📦 需求清單</h2>
-                <div class="tabs">
-                    <button class="tab-btn active" onclick="switchTab('all')">全部</button>
-                    <button class="tab-btn" onclick="switchTab('pending')">待購</button>
-                    <button class="tab-btn" onclick="switchTab('purchased')">已購</button>
-                </div>
-                
-                <div id="tabAll" class="tab-content active">
-                    <div id="listAll" class="list-container"></div>
-                </div>
-                <div id="tabPending" class="tab-content">
-                    <div id="listPending" class="list-container"></div>
-                </div>
-                <div id="tabPurchased" class="tab-content">
-                    <div id="listPurchased" class="list-container"></div>
+                <h2>📊 統計</h2>
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-number" id="totalCount">0</div>
+                        <div class="stat-label">待購</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="purchasedCount">0</div>
+                        <div class="stat-label">已購</div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- 購買 Modal -->
-    <div id="purchaseModal" class="modal">
-        <div class="modal-content">
-            <button class="modal-close" onclick="closePurchaseModal()">×</button>
-            <div class="modal-header">標記為已購買</div>
-            <form id="purchaseForm">
-                <div class="form-group">
-                    <label>物品名稱</label>
-                    <input type="text" id="purchaseItemName" disabled style="background: var(--gray-100);">
-                </div>
-                <div class="form-group">
-                    <label>購買日期 *</label>
-                    <input type="date" id="purchasedDate" required>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>購買數量 *</label>
-                        <input type="number" id="purchasedQuantity" min="1" required>
-                    </div>
-                    <div class="form-group">
-                        <label>總金額</label>
-                        <input type="number" id="purchasePrice" min="0" step="0.01">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>備註</label>
-                    <textarea id="purchaseNotes" placeholder="購買地點"></textarea>
-                </div>
-                <button type="submit" class="btn-primary">確認購買</button>
-            </form>
+        <div class="card">
+            <h2>📦 需求清單</h2>
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab(this, 'all')">全部</button>
+                <button class="tab-btn" onclick="switchTab(this, 'pending')">待購</button>
+                <button class="tab-btn" onclick="switchTab(this, 'purchased')">已購</button>
+            </div>
+            <div id="tabAll" class="tab-content active">
+                <div id="listAll" class="list-container"><div class="loading-state">⏳ 載入中...</div></div>
+            </div>
+            <div id="tabPending" class="tab-content">
+                <div id="listPending" class="list-container"></div>
+            </div>
+            <div id="tabPurchased" class="tab-content">
+                <div id="listPurchased" class="list-container"></div>
+            </div>
         </div>
     </div>
+</div>
 
-    <!-- Firebase SDK (v8 - 使用正確的 CDN) -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-
-    <script>
-        // Firebase 設定
-        const firebaseConfig = {
-            apiKey: "AIzaSyDvhHzxfr3NqFsnirfpIazaYxTcbrOhsyk",
-            authDomain: "sjps-academicaffairspurchasing.firebaseapp.com",
-            projectId: "sjps-academicaffairspurchasing",
-            storageBucket: "sjps-academicaffairspurchasing.firebasestorage.app",
-            messagingSenderId: "446817325627",
-            appId: "1:446817325627:web:d8eb53635e3e0d64f5821e"
-        };
-
-        // 初始化 Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-        const auth = firebase.auth();
-
-        // 管理員白名單 - 編輯這裡添加教務處人員帳號
-        const ADMIN_WHITELIST = [
-            'issac.tw.edu@gmail.com',
-        ];
-
-        let currentUser = null;
-        let isAdmin = false;
-        let items = [];
-        let currentEditId = null;
-
-        // 事件監聽
-        document.getElementById('addForm').addEventListener('submit', handleAddItem);
-        document.getElementById('purchaseForm').addEventListener('submit', handlePurchase);
-        document.getElementById('purchaseModal').addEventListener('click', e => {
-            if (e.target.id === 'purchaseModal') closePurchaseModal();
-        });
-
-        // Firebase 認證狀態監聽
-        auth.onAuthStateChanged(user => {
-            if (user) {
-                currentUser = user;
-                isAdmin = ADMIN_WHITELIST.includes(user.email);
-                showMainPage();
-                loadItems();
-            } else {
-                // 處理 redirect 返回結果
-                auth.getRedirectResult().catch(error => {
-                    if (error) {
-                        console.error('登入錯誤:', error);
-                        alert('登入失敗: ' + error.message);
-                    }
-                });
-            }
-        });
-
-        // 處理重定向後的登入結果
-        auth.getRedirectResult().then(result => {
-            if (result.user) {
-                console.log('登入成功:', result.user.email);
-            }
-        }).catch(error => {
-            console.error('登入錯誤:', error);
-            alert('登入失敗: ' + error.message);
-        });
-
-        function handleGoogleLogin() {
-            const provider = new firebase.auth.GoogleAuthProvider();
-            // 使用 redirect 而非 popup 以避免 COOP 問題
-            auth.signInWithRedirect(provider);
-        }
-
-        function showMainPage() {
-            document.getElementById('loginPage').classList.remove('active');
-            document.getElementById('mainPage').classList.add('active');
-            
-            document.getElementById('displayName').textContent = currentUser.displayName || currentUser.email;
-            const roleEl = document.getElementById('displayRole');
-            if (isAdmin) {
-                roleEl.innerHTML = '管理員 <span class="admin-badge">✓</span>';
-                document.getElementById('addFormCard').style.display = 'block';
-            } else {
-                roleEl.textContent = '訪客';
-            }
-        }
-
-        function handleAddItem(e) {
-            e.preventDefault();
-            if (!isAdmin) return alert('只有管理員可以新增');
-
-            db.collection('items').add({
-                name: document.getElementById('itemName').value,
-                quantity: parseInt(document.getElementById('quantity').value),
-                unit: document.getElementById('unit').value,
-                description: document.getElementById('description').value,
-                requester: document.getElementById('requester').value,
-                status: 'pending',
-                createdAt: new Date().toISOString(),
-                createdDate: new Date().toLocaleDateString('zh-TW'),
-                createdBy: currentUser.email,
-                createdByName: currentUser.displayName || currentUser.email
-            }).then(() => {
-                showAlert('addAlert', '✓ 已新增', 'success');
-                document.getElementById('addForm').reset();
-                loadItems();
-            }).catch(error => showAlert('addAlert', '✗ 失敗', 'error'));
-        }
-
-        function loadItems() {
-            db.collection('items')
-                .orderBy('createdAt', 'desc')
-                .onSnapshot(snapshot => {
-                    items = [];
-                    snapshot.forEach(doc => {
-                        items.push({ id: doc.id, ...doc.data() });
-                    });
-                    renderAllLists();
-                    updateStats();
-                });
-        }
-
-        function renderAllLists() {
-            const all = items;
-            const pending = items.filter(i => i.status === 'pending');
-            const purchased = items.filter(i => i.status === 'purchased');
-
-            document.getElementById('listAll').innerHTML = all.length ? all.map(renderItem).join('') : '<div class="empty-state">📭 沒有清單</div>';
-            document.getElementById('listPending').innerHTML = pending.length ? pending.map(renderItem).join('') : '<div class="empty-state">✓ 無</div>';
-            document.getElementById('listPurchased').innerHTML = purchased.length ? purchased.map(renderItem).join('') : '<div class="empty-state">📦 無</div>';
-        }
-
-        function renderItem(item) {
-            const date = new Date(item.createdAt).toLocaleDateString('zh-TW', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
-            
-            let purchaseInfo = '';
-            if (item.status === 'purchased') {
-                purchaseInfo = `
-                    <div style="margin-top: 6px; padding-top: 6px; border-top: 1px solid var(--gray-200);">
-                        購買: ${item.purchasedDate} | 數量: ${item.purchasedQuantity} ${item.unit}
-                        ${item.purchasePrice ? `| 金額: NT$${parseFloat(item.purchasePrice).toLocaleString()}` : ''}
-                    </div>
-                `;
-            }
-
-            const actions = isAdmin ? `
-                ${item.status === 'pending' ? `<button class="btn-success" onclick="openPurchaseModal('${item.id}', '${escapeHtml(item.name)}', ${item.quantity})">已購</button>` : ''}
-                <button class="btn-danger" onclick="deleteItem('${item.id}')">刪除</button>
-            ` : '';
-
-            return `
-                <div class="list-item ${item.status === 'purchased' ? 'purchased' : ''}">
-                    <div class="item-header">
-                        <div class="item-title">${escapeHtml(item.name)}</div>
-                        <span class="item-status ${item.status === 'pending' ? 'status-pending' : 'status-purchased'}">
-                            ${item.status === 'pending' ? '⏳ 待購' : '✓ 已購'}
-                        </span>
-                    </div>
-                    <div class="item-details">
-                        數量: ${item.quantity} ${item.unit} | 提出: ${escapeHtml(item.requester)}
-                        ${item.description ? `<br>說明: ${escapeHtml(item.description)}` : ''}
-                    </div>
-                    ${purchaseInfo}
-                    <div class="meta-info">${date} | ${escapeHtml(item.createdByName || item.createdBy)}</div>
-                    <div class="item-actions">${actions}</div>
+<!-- 購買 Modal -->
+<div id="purchaseModal" class="modal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closePurchaseModal()">×</button>
+        <div class="modal-header">標記為已購買</div>
+        <form id="purchaseForm">
+            <div class="form-group">
+                <label>物品名稱</label>
+                <input type="text" id="purchaseItemName" disabled style="background: var(--gray-100);">
+            </div>
+            <div class="form-group">
+                <label>購買日期 *</label>
+                <input type="date" id="purchasedDate" required>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>購買數量 *</label>
+                    <input type="number" id="purchasedQuantity" min="1" required>
                 </div>
-            `;
-        }
+                <div class="form-group">
+                    <label>總金額</label>
+                    <input type="number" id="purchasePrice" min="0" step="0.01">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>備註</label>
+                <textarea id="purchaseNotes" placeholder="購買地點"></textarea>
+            </div>
+            <button type="submit" class="btn-primary">確認購買</button>
+        </form>
+    </div>
+</div>
 
-        function openPurchaseModal(id, name, qty) {
-            currentEditId = id;
-            document.getElementById('purchaseItemName').value = name;
-            document.getElementById('purchasedQuantity').value = qty;
-            document.getElementById('purchasedDate').valueAsDate = new Date();
-            document.getElementById('purchasePrice').value = '';
-            document.getElementById('purchaseNotes').value = '';
-            document.getElementById('purchaseModal').classList.add('active');
-        }
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
-        function closePurchaseModal() {
-            document.getElementById('purchaseModal').classList.remove('active');
-        }
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyDvhHzxfr3NqFsnirfpIazaYxTcbrOhsyk",
+        authDomain: "sjps-academicaffairspurchasing.firebaseapp.com",
+        projectId: "sjps-academicaffairspurchasing",
+        storageBucket: "sjps-academicaffairspurchasing.firebasestorage.app",
+        messagingSenderId: "446817325627",
+        appId: "1:446817325627:web:d8eb53635e3e0d64f5821e"
+    };
 
-        function handlePurchase(e) {
-            e.preventDefault();
-            if (!isAdmin || !currentEditId) return;
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    const auth = firebase.auth();
 
-            db.collection('items').doc(currentEditId).update({
-                status: 'purchased',
-                purchasedDate: document.getElementById('purchasedDate').value,
-                purchasedQuantity: parseInt(document.getElementById('purchasedQuantity').value),
-                purchasePrice: document.getElementById('purchasePrice').value || null,
-                purchaseNotes: document.getElementById('purchaseNotes').value || null,
-                purchasedBy: currentUser.email,
-                updatedAt: new Date().toISOString()
-            }).then(() => {
-                closePurchaseModal();
-                loadItems();
-            }).catch(error => alert('更新失敗'));
-        }
+    const ADMIN_WHITELIST = ['issac.tw.edu@gmail.com'];
 
-        function deleteItem(id) {
-            if (!isAdmin) return alert('只有管理員可以刪除');
-            if (!confirm('確定刪除？')) return;
+    let currentUser = null;
+    let isAdmin = false;
+    let items = [];
+    let currentEditId = null;
+    let unsubscribe = null;
 
-            db.collection('items').doc(id).delete()
-                .then(() => loadItems())
-                .catch(error => alert('刪除失敗'));
-        }
+    document.getElementById('addForm').addEventListener('submit', handleAddItem);
+    document.getElementById('purchaseForm').addEventListener('submit', handlePurchase);
+    document.getElementById('purchaseModal').addEventListener('click', e => {
+        if (e.target.id === 'purchaseModal') closePurchaseModal();
+    });
 
-        function updateStats() {
-            document.getElementById('totalCount').textContent = items.filter(i => i.status === 'pending').length;
-            document.getElementById('purchasedCount').textContent = items.filter(i => i.status === 'purchased').length;
-        }
+    // ✅ 修復1: 改用 signInWithPopup，避免 redirect COOP 問題
+    function handleGoogleLogin() {
+        const btn = document.getElementById('loginBtn');
+        const errEl = document.getElementById('loginError');
+        btn.disabled = true;
+        btn.innerHTML = '<span>⏳</span> 登入中...';
+        errEl.style.display = 'none';
 
-        // 修復：改進 switchTab 函數
-        function switchTab(tabName) {
-            // 移除所有按鈕的 active 狀態
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
+        const provider = new firebase.auth.GoogleAuthProvider();
+        auth.signInWithPopup(provider)
+            .catch(error => {
+                let msg = '登入失敗，請重試';
+                if (error.code === 'auth/popup-blocked') msg = '彈出視窗被封鎖，請允許後重試';
+                else if (error.code === 'auth/popup-closed-by-user') msg = '登入已取消';
+                else if (error.code === 'auth/network-request-failed') msg = '網路錯誤，請確認連線';
+                errEl.textContent = '⚠️ ' + msg;
+                errEl.style.display = 'block';
+                btn.disabled = false;
+                btn.innerHTML = '<span>🔐</span> 使用 Google 帳號登入';
             });
-            
-            // 移除所有內容的 active 狀態
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
+    }
+
+    auth.onAuthStateChanged(user => {
+        if (user) {
+            currentUser = user;
+            isAdmin = ADMIN_WHITELIST.includes(user.email);
+            showMainPage();
+            startListening();
+        } else {
+            if (unsubscribe) { unsubscribe(); unsubscribe = null; }
+            showLoginPage();
+        }
+    });
+
+    function showMainPage() {
+        document.getElementById('loginPage').style.display = 'none';
+        document.getElementById('mainPage').classList.add('active');
+        document.getElementById('displayName').textContent = currentUser.displayName || currentUser.email;
+        const roleEl = document.getElementById('displayRole');
+        if (isAdmin) {
+            roleEl.innerHTML = '管理員 <span class="admin-badge">✓</span>';
+            document.getElementById('addFormCard').style.display = 'block';
+        } else {
+            roleEl.textContent = '訪客';
+        }
+    }
+
+    function showLoginPage() {
+        document.getElementById('loginPage').style.display = 'flex';
+        document.getElementById('mainPage').classList.remove('active');
+        const btn = document.getElementById('loginBtn');
+        btn.disabled = false;
+        btn.innerHTML = '<span>🔐</span> 使用 Google 帳號登入';
+    }
+
+    // ✅ 修復2: onSnapshot 加錯誤處理，顯示 Firestore 規則提示
+    function startListening() {
+        if (unsubscribe) unsubscribe();
+        unsubscribe = db.collection('items')
+            .orderBy('createdAt', 'desc')
+            .onSnapshot(snapshot => {
+                items = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+                renderAllLists();
+                updateStats();
+            }, error => {
+                console.error('讀取失敗:', error);
+                document.getElementById('listAll').innerHTML =
+                    '<div class="empty-state">⚠️ 讀取失敗<br><small>請確認 Firestore 安全規則已設定</small></div>';
             });
-            
-            // 添加當前選中的 active 狀態
-            event.target.classList.add('active');
-            const tabId = 'tab' + tabName.charAt(0).toUpperCase() + tabName.slice(1);
-            document.getElementById(tabId).classList.add('active');
-        }
+    }
 
-        function showAlert(id, msg, type) {
-            const el = document.getElementById(id);
-            el.innerHTML = `<div class="alert alert-${type}">${msg}</div>`;
-            setTimeout(() => el.innerHTML = '', 3000);
-        }
+    function handleAddItem(e) {
+        e.preventDefault();
+        if (!isAdmin) return;
+        const btn = e.target.querySelector('button[type="submit"]');
+        btn.disabled = true;
+        btn.textContent = '新增中...';
 
-        function escapeHtml(text) {
-            const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
-            return text.replace(/[&<>"']/g, m => map[m]);
-        }
+        db.collection('items').add({
+            name: document.getElementById('itemName').value.trim(),
+            quantity: parseInt(document.getElementById('quantity').value),
+            unit: document.getElementById('unit').value.trim(),
+            description: document.getElementById('description').value.trim(),
+            requester: document.getElementById('requester').value.trim(),
+            status: 'pending',
+            createdAt: new Date().toISOString(),
+            createdDate: new Date().toLocaleDateString('zh-TW'),
+            createdBy: currentUser.email,
+            createdByName: currentUser.displayName || currentUser.email
+        }).then(() => {
+            showAlert('addAlert', '✓ 已新增', 'success');
+            document.getElementById('addForm').reset();
+        }).catch(error => {
+            showAlert('addAlert', '✗ 新增失敗：' + error.message, 'error');
+        }).finally(() => {
+            btn.disabled = false;
+            btn.textContent = '新增';
+        });
+    }
 
-        function handleLogout() {
-            auth.signOut().then(() => {
-                document.getElementById('mainPage').classList.remove('active');
-                document.getElementById('loginPage').classList.add('active');
-                items = [];
-            });
+    function renderAllLists() {
+        const pending = items.filter(i => i.status === 'pending');
+        const purchased = items.filter(i => i.status === 'purchased');
+        document.getElementById('listAll').innerHTML = items.length ? items.map(renderItem).join('') : '<div class="empty-state">📭 沒有清單</div>';
+        document.getElementById('listPending').innerHTML = pending.length ? pending.map(renderItem).join('') : '<div class="empty-state">✓ 無待購項目</div>';
+        document.getElementById('listPurchased').innerHTML = purchased.length ? purchased.map(renderItem).join('') : '<div class="empty-state">📦 無已購項目</div>';
+    }
+
+    function renderItem(item) {
+        const date = new Date(item.createdAt).toLocaleDateString('zh-TW', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
+        let purchaseInfo = '';
+        if (item.status === 'purchased') {
+            purchaseInfo = `<div style="margin-top:6px;padding-top:6px;border-top:1px solid var(--gray-200);font-size:12px;color:var(--gray-600);">
+                購買: ${item.purchasedDate} | 數量: ${item.purchasedQuantity} ${escapeHtml(item.unit)}
+                ${item.purchasePrice ? `| 金額: NT$${parseFloat(item.purchasePrice).toLocaleString()}` : ''}
+                ${item.purchaseNotes ? `<br>備註: ${escapeHtml(item.purchaseNotes)}` : ''}
+            </div>`;
         }
-    </script>
+        const safeName = escapeHtml(item.name).replace(/'/g, "\\'");
+        const actions = isAdmin ? `
+            ${item.status === 'pending' ? `<button class="btn-success" onclick="openPurchaseModal('${item.id}', '${safeName}', ${item.quantity})">✓ 已購</button>` : ''}
+            <button class="btn-danger" onclick="deleteItem('${item.id}')">刪除</button>
+        ` : '';
+
+        return `<div class="list-item ${item.status === 'purchased' ? 'purchased' : ''}">
+            <div class="item-header">
+                <div class="item-title">${escapeHtml(item.name)}</div>
+                <span class="item-status ${item.status === 'pending' ? 'status-pending' : 'status-purchased'}">
+                    ${item.status === 'pending' ? '⏳ 待購' : '✓ 已購'}
+                </span>
+            </div>
+            <div class="item-details">
+                數量: ${item.quantity} ${escapeHtml(item.unit)} | 提出: ${escapeHtml(item.requester)}
+                ${item.description ? `<br>說明: ${escapeHtml(item.description)}` : ''}
+            </div>
+            ${purchaseInfo}
+            <div class="meta-info">${date} | ${escapeHtml(item.createdByName || item.createdBy)}</div>
+            <div class="item-actions">${actions}</div>
+        </div>`;
+    }
+
+    function openPurchaseModal(id, name, qty) {
+        currentEditId = id;
+        document.getElementById('purchaseItemName').value = name;
+        document.getElementById('purchasedQuantity').value = qty;
+        document.getElementById('purchasedDate').valueAsDate = new Date();
+        document.getElementById('purchasePrice').value = '';
+        document.getElementById('purchaseNotes').value = '';
+        document.getElementById('purchaseModal').classList.add('active');
+    }
+
+    function closePurchaseModal() {
+        document.getElementById('purchaseModal').classList.remove('active');
+        currentEditId = null;
+    }
+
+    function handlePurchase(e) {
+        e.preventDefault();
+        if (!isAdmin || !currentEditId) return;
+        const btn = e.target.querySelector('button[type="submit"]');
+        btn.disabled = true;
+        db.collection('items').doc(currentEditId).update({
+            status: 'purchased',
+            purchasedDate: document.getElementById('purchasedDate').value,
+            purchasedQuantity: parseInt(document.getElementById('purchasedQuantity').value),
+            purchasePrice: document.getElementById('purchasePrice').value || null,
+            purchaseNotes: document.getElementById('purchaseNotes').value || null,
+            purchasedBy: currentUser.email,
+            updatedAt: new Date().toISOString()
+        }).then(() => {
+            closePurchaseModal();
+        }).catch(error => {
+            alert('更新失敗：' + error.message);
+            btn.disabled = false;
+        });
+    }
+
+    function deleteItem(id) {
+        if (!isAdmin) return;
+        if (!confirm('確定刪除？')) return;
+        db.collection('items').doc(id).delete()
+            .catch(error => alert('刪除失敗：' + error.message));
+    }
+
+    function updateStats() {
+        document.getElementById('totalCount').textContent = items.filter(i => i.status === 'pending').length;
+        document.getElementById('purchasedCount').textContent = items.filter(i => i.status === 'purchased').length;
+    }
+
+    // ✅ 修復3: switchTab 傳入 btnEl，不依賴全域 event 變數
+    function switchTab(btnEl, tabName) {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        btnEl.classList.add('active');
+        document.getElementById('tab' + tabName.charAt(0).toUpperCase() + tabName.slice(1)).classList.add('active');
+    }
+
+    function showAlert(id, msg, type) {
+        const el = document.getElementById(id);
+        el.innerHTML = `<div class="alert alert-${type}">${msg}</div>`;
+        setTimeout(() => el.innerHTML = '', 3000);
+    }
+
+    function escapeHtml(text) {
+        if (!text) return '';
+        return String(text).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+    }
+
+    function handleLogout() {
+        if (unsubscribe) { unsubscribe(); unsubscribe = null; }
+        auth.signOut();
+        items = [];
+    }
+</script>
 </body>
 </html>
