@@ -20,20 +20,20 @@
             --warn-light: #fdf0e8;
             --danger: #c0392b;
             --danger-light: #fdecea;
-            --deleted: #9e9488;
             --gold: #b8860b;
             --gold-light: #fdf8e8;
+            --deleted: #9e9488;
         }
         body { font-family: 'Noto Sans TC', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.6; }
 
-        /* LOGIN */
+        /* ── LOGIN ── */
         #loginPage { min-height: 100vh; display: none; align-items: center; justify-content: center; background: var(--bg); padding: 20px; }
         #loginPage.active { display: flex; }
         .login-wrap { max-width: 420px; width: 100%; }
         .login-badge { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; display: block; }
-        .login-title { font-size: 36px; font-weight: 700; color: var(--text); line-height: 1.2; margin-bottom: 8px; }
+        .login-title { font-size: 36px; font-weight: 700; line-height: 1.2; margin-bottom: 8px; }
         .login-sub { color: var(--text-muted); font-size: 14px; margin-bottom: 40px; }
-        .login-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 32px; margin-bottom: 20px; }
+        .login-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 32px; }
         .login-features { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 28px; }
         .login-feat { background: var(--surface2); border-radius: 8px; padding: 12px; font-size: 12px; color: var(--text-muted); }
         .login-feat strong { display: block; color: var(--text); font-size: 13px; margin-bottom: 2px; }
@@ -42,120 +42,135 @@
         .btn-google:disabled { opacity: 0.5; cursor: not-allowed; }
         .login-error { margin-top: 12px; padding: 10px 14px; background: var(--danger-light); border-left: 3px solid var(--danger); border-radius: 6px; font-size: 12px; color: var(--danger); display: none; }
 
-        /* MAIN */
+        /* ── MAIN ── */
         #mainPage { display: none; min-height: 100vh; }
         #mainPage.active { display: block; }
 
         .topbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 32px; height: 60px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
         .topbar-left { display: flex; align-items: center; gap: 16px; }
-        .topbar-logo { font-family: 'Space Mono', monospace; font-size: 13px; font-weight: 700; color: var(--accent); letter-spacing: 1px; }
+        .topbar-logo { font-family: 'Space Mono', monospace; font-size: 13px; font-weight: 700; color: var(--accent); }
         .topbar-divider { width: 1px; height: 20px; background: var(--border); }
         .topbar-title { font-size: 14px; color: var(--text-muted); }
-        .topbar-right { display: flex; align-items: center; gap: 12px; }
+        .topbar-right { display: flex; align-items: center; gap: 10px; }
 
         .user-chip { display: flex; align-items: center; gap: 8px; background: var(--surface2); border: 1px solid var(--border); border-radius: 20px; padding: 5px 12px 5px 5px; font-size: 12px; }
-        .user-avatar { width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: white; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; font-family: 'Space Mono', monospace; }
-        .admin-tag { background: var(--gold); color: white; font-size: 9px; font-weight: 700; font-family: 'Space Mono', monospace; letter-spacing: 1px; padding: 2px 6px; border-radius: 10px; text-transform: uppercase; }
-        .guest-tag { background: var(--text-muted); color: white; font-size: 9px; font-weight: 700; font-family: 'Space Mono', monospace; letter-spacing: 1px; padding: 2px 6px; border-radius: 10px; text-transform: uppercase; }
+        .user-avatar { width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: white; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; }
+        .tag { font-size: 9px; font-weight: 700; font-family: 'Space Mono', monospace; letter-spacing: 1px; padding: 2px 6px; border-radius: 10px; text-transform: uppercase; }
+        .tag-admin { background: var(--gold); color: white; }
+        .tag-guest { background: var(--text-muted); color: white; }
 
-        .btn-topbar { background: none; border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; font-size: 12px; color: var(--text-muted); cursor: pointer; font-family: 'Noto Sans TC', sans-serif; transition: all 0.2s; white-space: nowrap; }
-        .btn-topbar:hover { border-color: var(--text); color: var(--text); }
-        .btn-topbar.danger:hover { border-color: var(--danger); color: var(--danger); }
-        .btn-topbar.gold { border-color: var(--gold); color: var(--gold); }
-        .btn-topbar.gold:hover { background: var(--gold-light); }
+        .btn-top { background: none; border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; font-size: 12px; color: var(--text-muted); cursor: pointer; font-family: 'Noto Sans TC', sans-serif; transition: all 0.2s; white-space: nowrap; }
+        .btn-top:hover { border-color: var(--text); color: var(--text); }
+        .btn-top.gold { border-color: var(--gold); color: var(--gold); }
+        .btn-top.gold:hover { background: var(--gold-light); }
+        .btn-top.logout:hover { border-color: var(--danger); color: var(--danger); }
 
+        /* ── LAYOUT ── */
         .main-wrap { max-width: 1100px; margin: 0 auto; padding: 40px 32px; display: grid; grid-template-columns: 300px 1fr; gap: 32px; align-items: start; }
         @media (max-width: 800px) { .main-wrap { grid-template-columns: 1fr; padding: 20px 16px; } .topbar { padding: 0 16px; } }
 
         .sidebar { display: flex; flex-direction: column; gap: 20px; }
+
         .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-        .panel-head { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+        .panel-head { padding: 16px 20px; border-bottom: 1px solid var(--border); }
         .panel-head h3 { font-size: 12px; font-weight: 700; font-family: 'Space Mono', monospace; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-muted); }
         .panel-body { padding: 20px; }
 
+        /* ── STATS ── */
         .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
         .stat-box { background: var(--surface2); border-radius: 8px; padding: 14px; text-align: center; }
         .stat-num { font-family: 'Space Mono', monospace; font-size: 28px; font-weight: 700; color: var(--text); line-height: 1; margin-bottom: 4px; }
         .stat-num.green { color: var(--accent); }
-        .stat-num.gray { color: var(--deleted); }
-        .stat-lbl { font-size: 11px; color: var(--text-muted); letter-spacing: 0.5px; }
+        .stat-lbl { font-size: 11px; color: var(--text-muted); }
 
+        /* ── FORM ── */
         .form-group { margin-bottom: 14px; }
         .form-label { display: block; font-size: 11px; font-weight: 700; font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 6px; }
         .form-input { width: 100%; padding: 9px 12px; border: 1px solid var(--border); border-radius: 6px; font-family: 'Noto Sans TC', sans-serif; font-size: 13px; background: var(--bg); color: var(--text); transition: border-color 0.2s; }
         .form-input:focus { outline: none; border-color: var(--accent); background: white; }
         .form-input::placeholder { color: var(--text-muted); }
-        .form-input:disabled { opacity: 0.5; cursor: not-allowed; }
         textarea.form-input { resize: vertical; min-height: 56px; }
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
         .btn-submit { width: 100%; padding: 11px; background: var(--accent); color: white; border: none; border-radius: 6px; font-family: 'Noto Sans TC', sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; transition: opacity 0.2s; margin-top: 4px; }
         .btn-submit:hover { opacity: 0.85; }
         .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
-
         .alert-msg { padding: 8px 12px; border-radius: 6px; font-size: 12px; margin-bottom: 12px; display: none; }
         .alert-msg.success { background: var(--accent-light); color: var(--accent); display: block; }
         .alert-msg.error { background: var(--danger-light); color: var(--danger); display: block; }
 
-        /* LIST */
-        .list-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-        .list-head { padding: 16px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-        .list-head h2 { font-size: 16px; font-weight: 700; }
-        .tabs { display: flex; gap: 4px; background: var(--surface2); border-radius: 8px; padding: 3px; flex-wrap: wrap; }
-        .tab-btn { background: none; border: none; padding: 6px 12px; font-size: 12px; font-family: 'Noto Sans TC', sans-serif; font-weight: 500; color: var(--text-muted); cursor: pointer; border-radius: 6px; transition: all 0.2s; }
-        .tab-btn.active { background: var(--surface); color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-        .list-body { max-height: 600px; overflow-y: auto; }
-        .list-empty { text-align: center; padding: 60px 20px; color: var(--text-muted); font-size: 13px; }
-        .list-empty-icon { font-size: 32px; margin-bottom: 10px; }
+        /* ── LIST SECTIONS ── */
+        .list-wrap { display: flex; flex-direction: column; gap: 20px; }
 
-        /* ITEM */
+        .section { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+
+        .section-head {
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.15s;
+        }
+        .section-head:hover { background: var(--surface2); }
+
+        .section-head-left { display: flex; align-items: center; gap: 12px; }
+        .section-head h2 { font-size: 15px; font-weight: 700; }
+
+        .count-pill { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 2px 10px; font-size: 12px; font-weight: 700; font-family: 'Space Mono', monospace; color: var(--text-muted); }
+        .count-pill.orange { background: var(--warn-light); border-color: #e8c090; color: var(--warn); }
+        .count-pill.green { background: var(--accent-light); border-color: #a8d0a0; color: var(--accent); }
+
+        .section-toggle { font-size: 18px; color: var(--text-muted); transition: transform 0.25s; line-height: 1; }
+        .section-toggle.open { transform: rotate(180deg); }
+
+        .section-body { border-top: 1px solid var(--border); max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+        .section-body.open { max-height: 2000px; }
+
+        .list-empty { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 13px; }
+
+        /* ── ITEM ── */
         .item { padding: 16px 24px; border-bottom: 1px solid var(--border); transition: background 0.15s; }
         .item:last-child { border-bottom: none; }
         .item:hover { background: var(--surface2); }
         .item.is-purchased { background: var(--accent-light); }
         .item.is-purchased:hover { background: #deeedd; }
-        .item.is-deleted { background: var(--surface2); opacity: 0.65; }
+
         .item-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
         .item-name { font-weight: 700; font-size: 15px; flex: 1; }
-        .item.is-deleted .item-name { text-decoration: line-through; color: var(--deleted); }
-        .badge { font-size: 10px; font-weight: 700; font-family: 'Space Mono', monospace; letter-spacing: 0.5px; padding: 3px 8px; border-radius: 10px; white-space: nowrap; text-transform: uppercase; }
-        .badge-pending { background: var(--warn-light); color: var(--warn); }
-        .badge-purchased { background: var(--accent-light); color: var(--accent); }
-        .badge-deleted { background: var(--surface2); color: var(--deleted); border: 1px solid var(--border); }
         .item-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; line-height: 1.5; }
+
         .item-purchase-info { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 8px 12px; font-size: 12px; color: var(--text-muted); margin-bottom: 8px; }
-        .item-delete-info { background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 8px 12px; font-size: 11px; color: var(--deleted); margin-bottom: 8px; font-style: italic; }
+
         .item-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
         .btn-sm { padding: 5px 12px; border: 1px solid var(--border); border-radius: 5px; font-size: 11px; font-family: 'Noto Sans TC', sans-serif; font-weight: 500; cursor: pointer; transition: all 0.2s; background: var(--surface); }
-        .btn-sm:hover { background: var(--surface2); }
         .btn-sm.green { border-color: var(--accent); color: var(--accent); }
         .btn-sm.green:hover { background: var(--accent-light); }
         .btn-sm.red { border-color: var(--danger); color: var(--danger); }
         .btn-sm.red:hover { background: var(--danger-light); }
-        .btn-sm.gray { border-color: var(--deleted); color: var(--deleted); }
+
         .item-footer { font-size: 11px; color: var(--text-muted); font-family: 'Space Mono', monospace; margin-top: 8px; opacity: 0.7; }
 
-        /* MODAL */
+        /* ── MODAL ── */
         .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 500; align-items: center; justify-content: center; padding: 20px; }
         .modal-overlay.active { display: flex; }
         .modal-box { background: var(--surface); border-radius: 12px; padding: 32px; max-width: 480px; width: 100%; max-height: 85vh; overflow-y: auto; position: relative; border: 1px solid var(--border); }
         .modal-title { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
         .modal-sub { font-size: 12px; color: var(--text-muted); margin-bottom: 24px; }
-        .modal-close-btn { position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 22px; cursor: pointer; color: var(--text-muted); line-height: 1; }
+        .modal-close-btn { position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 22px; cursor: pointer; color: var(--text-muted); }
 
-        /* ADMIN TABLE */
+        /* ── ADMIN TABLE ── */
         .admin-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-        .admin-table th { text-align: left; padding: 8px 10px; border-bottom: 2px solid var(--border); color: var(--text-muted); font-family: 'Space Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .admin-table th { text-align: left; padding: 8px 10px; border-bottom: 2px solid var(--border); color: var(--text-muted); font-family: 'Space Mono', monospace; font-size: 10px; text-transform: uppercase; }
         .admin-table td { padding: 10px; border-bottom: 1px solid var(--border); vertical-align: middle; }
         .admin-table tr:last-child td { border-bottom: none; }
         .admin-table tr:hover td { background: var(--surface2); }
-
         .role-pill { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 700; font-family: 'Space Mono', monospace; }
-        .role-admin { background: var(--gold-light); color: var(--gold); border: 1px solid #e8d080; }
-        .role-user { background: var(--surface2); color: var(--text-muted); border: 1px solid var(--border); }
+        .role-super { background: var(--gold-light); color: var(--gold); border: 1px solid #e8d080; }
+        .role-admin { background: var(--accent-light); color: var(--accent); border: 1px solid #a8d0a0; }
 
-        .mode-banner { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 16px; font-size: 12px; color: var(--text-muted); margin-bottom: 16px; display: none; text-align: center; }
-        .mode-banner.show { display: block; }
+        .guest-banner { background: var(--gold-light); border-bottom: 1px solid #e8d080; padding: 8px 32px; font-size: 12px; color: var(--gold); text-align: center; display: none; }
+        .guest-banner.show { display: block; }
 
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: transparent; }
@@ -164,7 +179,7 @@
 </head>
 <body>
 
-<!-- 登入頁面 -->
+<!-- 登入 -->
 <div id="loginPage">
     <div class="login-wrap">
         <span class="login-badge">左營區新莊國小 · 教務處</span>
@@ -174,8 +189,8 @@
             <div class="login-features">
                 <div class="login-feat"><strong>📋 新增需求</strong>所有登入者皆可新增</div>
                 <div class="login-feat"><strong>✓ 標記採購</strong>填寫採購日期與數量</div>
-                <div class="login-feat"><strong>📖 查看紀錄</strong>歷史採購一覽無遺</div>
-                <div class="login-feat"><strong>👤 Google 登入</strong>自動記錄操作者</div>
+                <div class="login-feat"><strong>📖 歷史紀錄</strong>已採購一覽無遺</div>
+                <div class="login-feat"><strong>🔒 Google 登入</strong>自動記錄操作者</div>
             </div>
             <button class="btn-google" id="loginBtn" onclick="handleGoogleLogin()">
                 <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#fff" d="M9 3.48c1.69 0 2.83.73 3.48 1.34l2.54-2.48C13.46.89 11.43 0 9 0 5.48 0 2.44 2.02.96 4.96l2.91 2.26C4.6 5.05 6.62 3.48 9 3.48z"/><path fill="#fff" d="M17.64 9.2c0-.74-.06-1.28-.19-1.84H9v3.34h4.96c-.1.83-.64 2.08-1.84 2.92l2.84 2.2c1.7-1.57 2.68-3.88 2.68-6.62z"/><path fill="#fff" d="M3.88 10.78A5.54 5.54 0 0 1 3.58 9c0-.62.11-1.22.29-1.78L.96 4.96A9 9 0 0 0 0 9c0 1.45.35 2.82.96 4.04l2.92-2.26z"/><path fill="#fff" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.84-2.2c-.76.53-1.78.9-3.12.9-2.38 0-4.4-1.57-5.12-3.74L.97 13.04C2.45 15.98 5.48 18 9 18z"/></svg>
@@ -198,19 +213,21 @@
             <div class="user-chip">
                 <div class="user-avatar" id="userAvatar">?</div>
                 <span id="userName">-</span>
-                <span class="admin-tag" id="adminTag" style="display:none">管理員</span>
-                <span class="guest-tag" id="guestTag" style="display:none">訪客模式</span>
+                <span class="tag tag-admin" id="adminTag" style="display:none">管理員</span>
+                <span class="tag tag-guest" id="guestTag" style="display:none">訪客模式</span>
             </div>
-            <!-- 管理員按鈕 -->
-            <button class="btn-topbar gold" id="btnAdminPanel" style="display:none" onclick="openModal('adminModal')">⚙ 管理</button>
-            <button class="btn-topbar" id="btnSwitchMode" style="display:none" onclick="toggleGuestMode()"></button>
-            <button class="btn-topbar danger" onclick="handleLogout()">登出</button>
+            <button class="btn-top gold" id="btnAdmin" style="display:none" onclick="openModal('adminModal')">⚙ 管理</button>
+            <button class="btn-top" id="btnMode" style="display:none" onclick="toggleGuestMode()"></button>
+            <button class="btn-top logout" onclick="handleLogout()">登出</button>
         </div>
     </div>
+
+    <div class="guest-banner" id="guestBanner">👤 目前以訪客模式瀏覽，無法執行刪除操作</div>
 
     <div class="main-wrap">
         <!-- 左側 -->
         <div class="sidebar">
+            <!-- 統計 -->
             <div class="panel">
                 <div class="panel-head"><h3>統計</h3></div>
                 <div class="panel-body">
@@ -223,18 +240,11 @@
                             <div class="stat-num green" id="statPurchased">0</div>
                             <div class="stat-lbl">已採購</div>
                         </div>
-                        <div class="stat-box">
-                            <div class="stat-num" id="statTotal">0</div>
-                            <div class="stat-lbl">總計</div>
-                        </div>
-                        <div class="stat-box">
-                            <div class="stat-num gray" id="statDeleted">0</div>
-                            <div class="stat-lbl">已刪除</div>
-                        </div>
                     </div>
                 </div>
             </div>
 
+            <!-- 新增 -->
             <div class="panel">
                 <div class="panel-head"><h3>新增需求</h3></div>
                 <div class="panel-body">
@@ -269,29 +279,43 @@
         </div>
 
         <!-- 右側 -->
-        <div class="list-panel">
-            <div class="list-head">
-                <h2>需求清單</h2>
-                <div class="tabs">
-                    <button class="tab-btn active" onclick="switchTab(this,'all')">全部</button>
-                    <button class="tab-btn" onclick="switchTab(this,'pending')">待採購</button>
-                    <button class="tab-btn" onclick="switchTab(this,'purchased')">已採購</button>
-                    <button class="tab-btn" onclick="switchTab(this,'deleted')">刪除紀錄</button>
+        <div class="list-wrap">
+            <!-- 待採購 section（預設展開） -->
+            <div class="section" id="sectionPending">
+                <div class="section-head" onclick="toggleSection('pending')">
+                    <div class="section-head-left">
+                        <h2>⏳ 待採購</h2>
+                        <span class="count-pill orange" id="pillPending">0</span>
+                    </div>
+                    <span class="section-toggle open" id="togglePending">▾</span>
+                </div>
+                <div class="section-body open" id="bodyPending">
+                    <div class="list-empty">載入中...</div>
                 </div>
             </div>
-            <div class="mode-banner" id="modeBanner">👤 訪客模式：目前以一般使用者身份瀏覽</div>
-            <div class="list-body" id="listBody">
-                <div class="list-empty"><div class="list-empty-icon">⏳</div>載入中...</div>
+
+            <!-- 已採購 section（預設收起） -->
+            <div class="section" id="sectionPurchased">
+                <div class="section-head" onclick="toggleSection('purchased')">
+                    <div class="section-head-left">
+                        <h2>✓ 已採購</h2>
+                        <span class="count-pill green" id="pillPurchased">0</span>
+                    </div>
+                    <span class="section-toggle" id="togglePurchased">▾</span>
+                </div>
+                <div class="section-body" id="bodyPurchased">
+                    <div class="list-empty">載入中...</div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- 採購 Modal -->
+<!-- 標記採購 Modal -->
 <div class="modal-overlay" id="purchaseModal">
     <div class="modal-box">
         <button class="modal-close-btn" onclick="closeModal('purchaseModal')">×</button>
-        <div class="modal-title">標記為已採購</div>
+        <div class="modal-title">✓ 標記為已採購</div>
         <div class="modal-sub" id="purchaseModalSub"></div>
         <form id="purchaseForm">
             <div class="form-group">
@@ -309,7 +333,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="form-label">採購地點／備註</label>
+                <label class="form-label">採購地點／備註（選填）</label>
                 <textarea class="form-input" id="purchaseNote" placeholder="全聯、文具行..."></textarea>
             </div>
             <button type="submit" class="btn-submit">確認採購</button>
@@ -317,32 +341,15 @@
     </div>
 </div>
 
-<!-- 軟刪除 Modal -->
+<!-- 刪除確認 Modal（管理員） -->
 <div class="modal-overlay" id="deleteModal">
     <div class="modal-box">
         <button class="modal-close-btn" onclick="closeModal('deleteModal')">×</button>
-        <div class="modal-title">刪除此需求</div>
-        <div class="modal-sub">刪除後仍可在「刪除紀錄」頁籤查看。</div>
-        <div class="form-group">
-            <label class="form-label">刪除原因（選填）</label>
-            <textarea class="form-input" id="deleteReason" placeholder="重複新增、已不需要..."></textarea>
-        </div>
-        <div style="display:flex;gap:10px;margin-top:4px;">
+        <div class="modal-title" style="color:var(--danger)">🗑 刪除此項目</div>
+        <div class="modal-sub">刪除後不可復原。</div>
+        <div style="display:flex;gap:10px;">
             <button class="btn-sm" style="flex:1;padding:10px;" onclick="closeModal('deleteModal')">取消</button>
-            <button class="btn-sm red" style="flex:1;padding:10px;" onclick="confirmSoftDelete()">確認刪除</button>
-        </div>
-    </div>
-</div>
-
-<!-- 徹底刪除 Modal -->
-<div class="modal-overlay" id="hardDeleteModal">
-    <div class="modal-box">
-        <button class="modal-close-btn" onclick="closeModal('hardDeleteModal')">×</button>
-        <div class="modal-title" style="color:var(--danger)">⚠ 徹底刪除</div>
-        <div class="modal-sub">此操作不可復原，紀錄將永久消失。</div>
-        <div style="display:flex;gap:10px;margin-top:16px;">
-            <button class="btn-sm" style="flex:1;padding:10px;" onclick="closeModal('hardDeleteModal')">取消</button>
-            <button class="btn-sm red" style="flex:1;padding:10px;" onclick="confirmHardDelete()">永久刪除</button>
+            <button class="btn-sm red" style="flex:1;padding:10px;" onclick="confirmDelete()">確認刪除</button>
         </div>
     </div>
 </div>
@@ -352,37 +359,28 @@
     <div class="modal-box" style="max-width:560px;">
         <button class="modal-close-btn" onclick="closeModal('adminModal')">×</button>
         <div class="modal-title">⚙ 管理員面板</div>
-        <div class="modal-sub">查看登入紀錄、管理管理員名單</div>
+        <div class="modal-sub">管理管理員名單、查看登入紀錄</div>
 
-        <!-- 新增管理員 -->
-        <div style="background:var(--surface2);border-radius:8px;padding:16px;margin-bottom:20px;">
+        <div style="background:var(--surface2);border-radius:8px;padding:16px;margin-bottom:24px;">
             <div class="form-label" style="margin-bottom:10px;">升級為管理員</div>
             <div style="display:flex;gap:8px;">
                 <input class="form-input" type="email" id="newAdminEmail" placeholder="輸入 Google 帳號 Email" style="flex:1;">
                 <button class="btn-sm green" style="padding:8px 14px;white-space:nowrap;" onclick="addAdmin()">新增</button>
             </div>
-            <div style="font-size:11px;color:var(--text-muted);margin-top:6px;">該使用者下次登入後即生效</div>
             <div id="adminAddMsg" style="font-size:12px;margin-top:8px;display:none;"></div>
         </div>
 
-        <!-- 管理員名單 -->
-        <div class="form-label" style="margin-bottom:10px;">目前管理員名單</div>
-        <div id="adminList" style="margin-bottom:24px;">
-            <div style="color:var(--text-muted);font-size:13px;">載入中...</div>
-        </div>
+        <div class="form-label" style="margin-bottom:10px;">管理員名單</div>
+        <div id="adminList" style="margin-bottom:24px;font-size:13px;color:var(--text-muted);">載入中...</div>
 
-        <!-- 登入紀錄 -->
         <div class="form-label" style="margin-bottom:10px;">最近登入紀錄</div>
-        <div id="loginLogList">
-            <div style="color:var(--text-muted);font-size:13px;">載入中...</div>
-        </div>
+        <div id="loginLogList" style="font-size:13px;color:var(--text-muted);">載入中...</div>
     </div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-
 <script>
     const firebaseConfig = {
         apiKey: "AIzaSyDvhHzxfr3NqFsnirfpIazaYxTcbrOhsyk",
@@ -392,21 +390,19 @@
         messagingSenderId: "446817325627",
         appId: "1:446817325627:web:d8eb53635e3e0d64f5821e"
     };
-
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
     const auth = firebase.auth();
 
-    // 超級管理員（寫死，無法被移除）
     const SUPER_ADMINS = ['issac@sjps.kh.edu.tw'];
 
     let currentUser = null;
     let isAdmin = false;
-    let guestMode = false; // 管理員切換成訪客模式
+    let guestMode = false;
     let items = [];
-    let currentTab = 'all';
     let targetId = null;
     let unsubscribe = null;
+    let sectionState = { pending: true, purchased: false };
 
     // ── 登入 ──
     function handleGoogleLogin() {
@@ -415,31 +411,29 @@
         btn.disabled = true;
         btn.textContent = '登入中...';
         err.style.display = 'none';
-        auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
-            .catch(e => {
-                let msg = '登入失敗，請重試';
-                if (e.code === 'auth/popup-blocked') msg = '請允許彈出視窗後重試';
-                else if (e.code === 'auth/popup-closed-by-user') msg = '已取消登入';
-                err.textContent = '⚠ ' + msg;
-                err.style.display = 'block';
-                btn.disabled = false;
-                btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 18 18"><path fill="#fff" d="M9 3.48c1.69 0 2.83.73 3.48 1.34l2.54-2.48C13.46.89 11.43 0 9 0 5.48 0 2.44 2.02.96 4.96l2.91 2.26C4.6 5.05 6.62 3.48 9 3.48z"/><path fill="#fff" d="M17.64 9.2c0-.74-.06-1.28-.19-1.84H9v3.34h4.96c-.1.83-.64 2.08-1.84 2.92l2.84 2.2c1.7-1.57 2.68-3.88 2.68-6.62z"/><path fill="#fff" d="M3.88 10.78A5.54 5.54 0 0 1 3.58 9c0-.62.11-1.22.29-1.78L.96 4.96A9 9 0 0 0 0 9c0 1.45.35 2.82.96 4.04l2.92-2.26z"/><path fill="#fff" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.84-2.2c-.76.53-1.78.9-3.12.9-2.38 0-4.4-1.57-5.12-3.74L.97 13.04C2.45 15.98 5.48 18 9 18z"/></svg> 使用 Google 帳號登入`;
-            });
+        auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).catch(e => {
+            let msg = '登入失敗，請重試';
+            if (e.code === 'auth/popup-blocked') msg = '請允許彈出視窗後重試';
+            else if (e.code === 'auth/popup-closed-by-user') msg = '已取消登入';
+            err.textContent = '⚠ ' + msg;
+            err.style.display = 'block';
+            btn.disabled = false;
+            btn.textContent = '使用 Google 帳號登入';
+        });
     }
 
     auth.onAuthStateChanged(async user => {
         if (user) {
             currentUser = user;
-            // 檢查是否為管理員（超級 + Firestore 動態名單）
             isAdmin = await checkAdmin(user.email);
             guestMode = false;
-            // 記錄登入
             logLogin(user);
             showMain();
             listen();
         } else {
             if (unsubscribe) { unsubscribe(); unsubscribe = null; }
-            showLogin();
+            document.getElementById('loginPage').classList.add('active');
+            document.getElementById('mainPage').classList.remove('active');
         }
     });
 
@@ -466,29 +460,20 @@
     }
 
     function updateUI() {
-        const effectiveAdmin = isAdmin && !guestMode;
+        const effAdmin = isAdmin && !guestMode;
         const name = currentUser.displayName || currentUser.email;
         document.getElementById('userName').textContent = name;
         document.getElementById('userAvatar').textContent = name.charAt(0).toUpperCase();
-        document.getElementById('adminTag').style.display = (isAdmin && !guestMode) ? 'inline' : 'none';
+        document.getElementById('adminTag').style.display = effAdmin ? 'inline' : 'none';
         document.getElementById('guestTag').style.display = guestMode ? 'inline' : 'none';
-
+        document.getElementById('btnAdmin').style.display = effAdmin ? 'inline' : 'none';
         if (isAdmin) {
-            document.getElementById('btnAdminPanel').style.display = guestMode ? 'none' : 'inline';
-            document.getElementById('btnSwitchMode').style.display = 'inline';
-            document.getElementById('btnSwitchMode').textContent = guestMode ? '↩ 切回管理員' : '👤 切換訪客模式';
-            document.getElementById('btnSwitchMode').className = guestMode ? 'btn-topbar gold' : 'btn-topbar';
+            document.getElementById('btnMode').style.display = 'inline';
+            document.getElementById('btnMode').textContent = guestMode ? '↩ 切回管理員' : '👤 訪客模式';
+            document.getElementById('btnMode').className = guestMode ? 'btn-top gold' : 'btn-top';
         }
-
-        const banner = document.getElementById('modeBanner');
-        banner.className = guestMode ? 'mode-banner show' : 'mode-banner';
-
-        renderList();
-    }
-
-    function showLogin() {
-        document.getElementById('loginPage').classList.add('active');
-        document.getElementById('mainPage').classList.remove('active');
+        document.getElementById('guestBanner').className = guestMode ? 'guest-banner show' : 'guest-banner';
+        renderLists();
     }
 
     function handleLogout() {
@@ -496,48 +481,37 @@
         auth.signOut();
     }
 
-    // ── 切換訪客模式 ──
     function toggleGuestMode() {
-        if (!isAdmin) return;
         guestMode = !guestMode;
         updateUI();
     }
 
-    // ── 有效權限（考量訪客模式）──
     function effectiveAdmin() { return isAdmin && !guestMode; }
 
-    // ── 即時監聽 ──
+    // ── 監聽 ──
     function listen() {
         if (unsubscribe) unsubscribe();
-        unsubscribe = db.collection('items')
-            .orderBy('createdAt', 'desc')
-            .onSnapshot(snap => {
-                items = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-                renderList();
-                updateStats();
-            }, () => {
-                document.getElementById('listBody').innerHTML =
-                    '<div class="list-empty"><div class="list-empty-icon">⚠️</div>讀取失敗，請確認 Firestore 安全規則</div>';
-            });
+        unsubscribe = db.collection('items').orderBy('createdAt', 'desc').onSnapshot(snap => {
+            items = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+            renderLists();
+            updateStats();
+        }, () => {
+            document.getElementById('bodyPending').innerHTML = '<div class="list-empty">⚠️ 讀取失敗，請確認 Firestore 安全規則</div>';
+        });
     }
 
     // ── 新增 ──
     document.getElementById('addForm').addEventListener('submit', e => {
         e.preventDefault();
         const btn = document.getElementById('addBtn');
-        btn.disabled = true;
-        btn.textContent = '新增中...';
+        btn.disabled = true; btn.textContent = '新增中...';
         db.collection('items').add({
-            name: v('itemName'),
-            quantity: parseInt(v('quantity')),
-            unit: v('unit'),
-            description: v('description'),
-            requester: v('requester'),
+            name: v('itemName'), quantity: parseInt(v('quantity')),
+            unit: v('unit'), description: v('description'), requester: v('requester'),
             status: 'pending',
             createdAt: new Date().toISOString(),
             createdBy: currentUser.email,
-            createdByName: currentUser.displayName || currentUser.email,
-            deletedAt: null, deletedBy: null, deletedByName: null, deleteReason: null
+            createdByName: currentUser.displayName || currentUser.email
         }).then(() => {
             showAlert('addAlert', '✓ 已新增', 'success');
             document.getElementById('addForm').reset();
@@ -546,74 +520,78 @@
     });
 
     // ── 渲染 ──
-    function renderList() {
-        let list = items;
-        if (currentTab === 'pending')   list = items.filter(i => i.status === 'pending' && !i.deletedAt);
-        if (currentTab === 'purchased') list = items.filter(i => i.status === 'purchased' && !i.deletedAt);
-        if (currentTab === 'deleted')   list = items.filter(i => i.deletedAt);
-        if (currentTab === 'all')       list = items.filter(i => !i.deletedAt);
+    function renderLists() {
+        const pending = items.filter(i => i.status === 'pending');
+        const purchased = items.filter(i => i.status === 'purchased');
 
-        if (!list.length) {
-            document.getElementById('listBody').innerHTML = '<div class="list-empty"><div class="list-empty-icon">📭</div>沒有項目</div>';
-            return;
-        }
-        document.getElementById('listBody').innerHTML = list.map(renderItem).join('');
+        document.getElementById('pillPending').textContent = pending.length;
+        document.getElementById('pillPurchased').textContent = purchased.length;
+
+        document.getElementById('bodyPending').innerHTML =
+            pending.length ? pending.map(i => renderItem(i)).join('') :
+            '<div class="list-empty">🎉 目前沒有待採購項目</div>';
+
+        document.getElementById('bodyPurchased').innerHTML =
+            purchased.length ? purchased.map(i => renderItem(i)).join('') :
+            '<div class="list-empty">尚無已採購紀錄</div>';
     }
 
     function renderItem(item) {
-        const isDeleted = !!item.deletedAt;
         const isPurchased = item.status === 'purchased';
-        const eff = effectiveAdmin();
-
-        let statusBadge = `<span class="badge badge-pending">待採購</span>`;
-        if (isPurchased) statusBadge = `<span class="badge badge-purchased">✓ 已採購</span>`;
-        if (isDeleted)   statusBadge = `<span class="badge badge-deleted">已刪除</span>`;
+        const effAdmin = effectiveAdmin();
 
         let purchaseInfo = '';
-        if (isPurchased && !isDeleted) {
+        if (isPurchased) {
             purchaseInfo = `<div class="item-purchase-info">
-                ✓ 採購日期：${item.purchaseDate}　數量：${item.purchaseQty} ${h(item.unit)}
-                ${item.purchasePrice ? `　金額：NT$ ${parseInt(item.purchasePrice).toLocaleString()}` : ''}
-                ${item.purchaseNote ? `<br>備註：${h(item.purchaseNote)}` : ''}
+                📅 ${item.purchaseDate}　數量：${item.purchaseQty} ${h(item.unit)}
+                ${item.purchasePrice ? `　金額：NT$${parseInt(item.purchasePrice).toLocaleString()}` : ''}
+                ${item.purchaseNote ? `<br>📍 ${h(item.purchaseNote)}` : ''}
                 <br><span style="opacity:.6">採購者：${h(item.purchasedByName || item.purchasedBy || '')}</span>
             </div>`;
         }
 
-        let deleteInfo = '';
-        if (isDeleted) {
-            deleteInfo = `<div class="item-delete-info">
-                刪除於 ${fmtDate(item.deletedAt)}　by ${h(item.deletedByName || item.deletedBy || '')}
-                ${item.deleteReason ? `　原因：${h(item.deleteReason)}` : ''}
-            </div>`;
+        let actions = '<div class="item-actions">';
+        if (!isPurchased) {
+            // 所有人都可以標記採購
+            actions += `<button class="btn-sm green" onclick="openPurchaseModal('${item.id}','${h(item.name).replace(/'/g,"\\'")}',${item.quantity})">✓ 標記採購</button>`;
         }
-
-        let actions = '';
-        if (!isDeleted) {
-            actions = `<div class="item-actions">`;
-            if (!isPurchased) actions += `<button class="btn-sm green" onclick="openPurchaseModal('${item.id}','${h(item.name).replace(/'/g,"\\'")}',${item.quantity})">✓ 標記採購</button>`;
+        // 只有管理員（非訪客模式）才能刪除
+        if (effAdmin) {
             actions += `<button class="btn-sm red" onclick="openDeleteModal('${item.id}')">刪除</button>`;
-            if (eff) actions += `<button class="btn-sm gray" onclick="openHardDeleteModal('${item.id}')">徹底刪除</button>`;
-            actions += `</div>`;
-        } else if (eff) {
-            actions = `<div class="item-actions"><button class="btn-sm gray" onclick="openHardDeleteModal('${item.id}')">永久清除</button></div>`;
         }
+        actions += '</div>';
 
-        return `<div class="item ${isPurchased && !isDeleted ? 'is-purchased' : ''} ${isDeleted ? 'is-deleted' : ''}">
+        return `<div class="item ${isPurchased ? 'is-purchased' : ''}">
             <div class="item-top">
                 <div class="item-name">${h(item.name)}</div>
-                ${statusBadge}
             </div>
             <div class="item-meta">
                 數量：${item.quantity} ${h(item.unit)}
                 ${item.requester ? `　提出人：${h(item.requester)}` : ''}
                 ${item.description ? `<br>${h(item.description)}` : ''}
             </div>
-            ${purchaseInfo}${deleteInfo}${actions}
+            ${purchaseInfo}
+            ${actions}
             <div class="item-footer">${fmtDate(item.createdAt)}　${h(item.createdByName || item.createdBy)}</div>
         </div>`;
     }
 
-    // ── 採購 ──
+    // ── 展開/收起 section ──
+    function toggleSection(name) {
+        sectionState[name] = !sectionState[name];
+        const body = document.getElementById('body' + cap(name));
+        const toggle = document.getElementById('toggle' + cap(name));
+        body.className = 'section-body' + (sectionState[name] ? ' open' : '');
+        toggle.className = 'section-toggle' + (sectionState[name] ? ' open' : '');
+    }
+
+    // ── 統計 ──
+    function updateStats() {
+        document.getElementById('statPending').textContent = items.filter(i => i.status === 'pending').length;
+        document.getElementById('statPurchased').textContent = items.filter(i => i.status === 'purchased').length;
+    }
+
+    // ── 採購 Modal ──
     function openPurchaseModal(id, name, qty) {
         targetId = id;
         document.getElementById('purchaseModalSub').textContent = `物品：${name}`;
@@ -643,61 +621,41 @@
           .finally(() => btn.disabled = false);
     });
 
-    // ── 刪除 ──
-    function openDeleteModal(id) { targetId = id; document.getElementById('deleteReason').value = ''; openModal('deleteModal'); }
-    function confirmSoftDelete() {
-        if (!targetId) return;
-        db.collection('items').doc(targetId).update({
-            deletedAt: new Date().toISOString(),
-            deletedBy: currentUser.email,
-            deletedByName: currentUser.displayName || currentUser.email,
-            deleteReason: v('deleteReason') || null
-        }).then(() => closeModal('deleteModal')).catch(err => alert(err.message));
-    }
-
-    function openHardDeleteModal(id) { targetId = id; openModal('hardDeleteModal'); }
-    function confirmHardDelete() {
+    // ── 刪除 Modal（管理員） ──
+    function openDeleteModal(id) { targetId = id; openModal('deleteModal'); }
+    function confirmDelete() {
         if (!targetId || !effectiveAdmin()) return;
         db.collection('items').doc(targetId).delete()
-            .then(() => closeModal('hardDeleteModal')).catch(err => alert(err.message));
+            .then(() => closeModal('deleteModal'))
+            .catch(err => alert('刪除失敗：' + err.message));
     }
 
     // ── 管理員面板 ──
-    async function openAdminModal() {
-        openModal('adminModal');
-        loadAdminList();
-        loadLoginLog();
-    }
-
     async function loadAdminList() {
         const el = document.getElementById('adminList');
         try {
             const snap = await db.collection('admins').get();
-            const admins = snap.docs.map(d => d.id);
-            // 加入超級管理員
-            const all = [...new Set([...SUPER_ADMINS, ...admins])];
-            if (!all.length) { el.innerHTML = '<div style="color:var(--text-muted);font-size:13px;">無</div>'; return; }
+            const dynamic = snap.docs.map(d => d.id);
+            const all = [...new Set([...SUPER_ADMINS, ...dynamic])];
             el.innerHTML = `<table class="admin-table">
                 <thead><tr><th>Email</th><th>類型</th><th></th></tr></thead>
                 <tbody>${all.map(email => {
                     const isSuper = SUPER_ADMINS.includes(email);
                     return `<tr>
                         <td style="font-family:'Space Mono',monospace;font-size:11px;">${h(email)}</td>
-                        <td><span class="role-pill role-admin">${isSuper ? '超級管理員' : '管理員'}</span></td>
+                        <td><span class="role-pill ${isSuper ? 'role-super' : 'role-admin'}">${isSuper ? '超級管理員' : '管理員'}</span></td>
                         <td>${!isSuper ? `<button class="btn-sm red" style="font-size:10px;padding:3px 8px;" onclick="removeAdmin('${h(email)}')">移除</button>` : ''}</td>
                     </tr>`;
                 }).join('')}</tbody>
             </table>`;
-        } catch(e) {
-            el.innerHTML = '<div style="color:var(--danger);font-size:12px;">載入失敗</div>';
-        }
+        } catch { el.textContent = '載入失敗'; }
     }
 
     async function loadLoginLog() {
         const el = document.getElementById('loginLogList');
         try {
             const snap = await db.collection('loginLogs').orderBy('loginAt','desc').limit(20).get();
-            if (snap.empty) { el.innerHTML = '<div style="color:var(--text-muted);font-size:13px;">無紀錄</div>'; return; }
+            if (snap.empty) { el.textContent = '尚無紀錄'; return; }
             el.innerHTML = `<table class="admin-table">
                 <thead><tr><th>姓名</th><th>Email</th><th>時間</th></tr></thead>
                 <tbody>${snap.docs.map(d => {
@@ -709,9 +667,7 @@
                     </tr>`;
                 }).join('')}</tbody>
             </table>`;
-        } catch(e) {
-            el.innerHTML = '<div style="color:var(--danger);font-size:12px;">載入失敗（請確認 Firestore 規則）</div>';
-        }
+        } catch { el.textContent = '載入失敗'; }
     }
 
     async function addAdmin() {
@@ -723,12 +679,11 @@
         }
         try {
             await db.collection('admins').doc(email).set({ addedBy: currentUser.email, addedAt: new Date().toISOString() });
-            msg.textContent = '✓ 已新增，該使用者下次登入後生效'; msg.style.color = 'var(--accent)';
+            msg.textContent = '✓ 已新增，該使用者下次登入後生效';
+            msg.style.color = 'var(--accent)';
             document.getElementById('newAdminEmail').value = '';
             loadAdminList();
-        } catch(e) {
-            msg.textContent = '✗ 失敗：' + e.message; msg.style.color = 'var(--danger)';
-        }
+        } catch(e) { msg.textContent = '✗ ' + e.message; msg.style.color = 'var(--danger)'; }
         msg.style.display = 'block';
     }
 
@@ -740,29 +695,15 @@
         } catch(e) { alert('移除失敗：' + e.message); }
     }
 
-    // ── 統計 ──
-    function updateStats() {
-        const active = items.filter(i => !i.deletedAt);
-        document.getElementById('statPending').textContent   = active.filter(i => i.status === 'pending').length;
-        document.getElementById('statPurchased').textContent = active.filter(i => i.status === 'purchased').length;
-        document.getElementById('statTotal').textContent     = active.length;
-        document.getElementById('statDeleted').textContent   = items.filter(i => i.deletedAt).length;
-    }
-
-    // ── Tab ──
-    function switchTab(btn, tab) {
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        currentTab = tab;
-        renderList();
-    }
-
     // ── Modal ──
     function openModal(id) {
         document.getElementById(id).classList.add('active');
         if (id === 'adminModal') { loadAdminList(); loadLoginLog(); }
     }
-    function closeModal(id) { document.getElementById(id).classList.remove('active'); targetId = null; }
+    function closeModal(id) {
+        document.getElementById(id).classList.remove('active');
+        targetId = null;
+    }
     document.querySelectorAll('.modal-overlay').forEach(m => {
         m.addEventListener('click', e => { if (e.target === m) closeModal(m.id); });
     });
@@ -773,6 +714,7 @@
         if (!t) return '';
         return String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
     }
+    function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
     function fmtDate(iso) {
         if (!iso) return '';
         return new Date(iso).toLocaleString('zh-TW', { month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit' });
@@ -780,7 +722,7 @@
     function showAlert(id, msg, type) {
         const el = document.getElementById(id);
         el.textContent = msg; el.className = 'alert-msg ' + type;
-        setTimeout(() => { el.className = 'alert-msg'; el.textContent = ''; }, 3000);
+        setTimeout(() => { el.className = 'alert-msg'; }, 3000);
     }
 </script>
 </body>
