@@ -643,18 +643,21 @@
         }
         actions += '</div>';
 
+        const actionsWithFooter = `<div style="display:flex;align-items:center;gap:12px;margin-top:8px;flex-wrap:wrap;">
+            ${!isPurchased ? `<button class="btn-sm green" onclick="openPurchaseModal('${item.id}','${h(item.name).replace(/'/g,"\\'")}',${item.quantity})">✓ 標記採購</button>` : ''}
+            ${effAdmin ? `<button class="btn-sm red" onclick="openDeleteModal('${item.id}')">刪除</button>` : ''}
+            <span style="font-size:11px;color:var(--text-muted);font-family:'Space Mono',monospace;opacity:.7;">${fmtDate(item.createdAt)}　${h(item.createdByName || item.createdBy)}</span>
+        </div>`;
+
         return `<div class="item ${isPurchased ? 'is-purchased' : ''}">
-            <div class="item-top">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:4px;">
                 <div class="item-name">${h(item.name)}</div>
+                ${item.requester ? `<span style="font-size:12px;color:var(--text-muted);white-space:nowrap;">提出人：${h(item.requester)}</span>` : ''}
             </div>
-            <div class="item-meta">
-                數量：${item.quantity} ${h(item.unit)}
-                ${item.requester ? `　提出人：${h(item.requester)}` : ''}
-                ${item.description ? `<br>${h(item.description)}` : ''}
-            </div>
+            <div class="item-meta">數量：${item.quantity} ${h(item.unit)}</div>
+            ${item.description ? `<div style="font-size:13px;color:var(--text);background:var(--surface2);border-left:3px solid var(--border);border-radius:4px;padding:6px 10px;margin:6px 0;">${h(item.description)}</div>` : ''}
             ${purchaseInfo}
-            ${actions}
-            <div class="item-footer">${fmtDate(item.createdAt)}　${h(item.createdByName || item.createdBy)}</div>
+            ${actionsWithFooter}
         </div>`;
     }
 
