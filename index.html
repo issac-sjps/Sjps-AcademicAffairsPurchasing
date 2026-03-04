@@ -441,6 +441,7 @@
     }
 
     auth.onAuthStateChanged(async user => {
+        if (user) {
             currentUser = user;
             isAdmin = false;
             userNickname = null;
