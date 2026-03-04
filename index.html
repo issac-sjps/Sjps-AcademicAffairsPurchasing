@@ -443,12 +443,20 @@
     auth.onAuthStateChanged(async user => {
         if (user) {
             currentUser = user;
-            isAdmin = await checkAdmin(user.email);
-            guestMode = false;
+            // 同時發送所有請求，不要一個等一個
+            [isAdmin, userNickname] = await Promise.all([
+                checkAdmin(user.email),
+                loadNickname(user.email)
+            ]);
             logLogin(user);
-            await loadNickname(user.email);
             showMain();
             listen();
+
+
+
+
+
+
         } else {
             if (unsubscribe) { unsubscribe(); unsubscribe = null; }
             document.getElementById('loginPage').classList.add('active');
@@ -468,9 +476,15 @@
     async function loadNickname(email) {
         try {
             const doc = await db.collection("userProfiles").doc(email).get();
-            userNickname = doc.exists && doc.data().nickname ? doc.data().nickname : null;
-        } catch { userNickname = null; }
+            return doc.exists && doc.data().nickname ? doc.data().nickname : null;
+        } catch { return null; }
     }
+
+
+
+
+
+
 
     function getDisplayName() {
         return userNickname || currentUser.displayName || currentUser.email;
