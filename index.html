@@ -218,6 +218,8 @@
             </div>
             <button class="btn-top gold" id="btnAdmin" style="display:none" onclick="openModal('adminModal')">⚙ 管理</button>
             <button class="btn-top" id="btnMode" style="display:none" onclick="toggleGuestMode()"></button>
+            <button class="btn-top" onclick="openModal('nicknameModal')">✏ 改名</button>
+            <a href="https://issac-sjps.github.io/IssueTrackingSystem/" target="_blank" class="btn-top" style="text-decoration:none;">🐛 問題回報</a>
             <button class="btn-top logout" onclick="handleLogout()">登出</button>
         </div>
     </div>
@@ -354,6 +356,21 @@
     </div>
 </div>
 
+<!-- 改名 Modal -->
+<div class="modal-overlay" id="nicknameModal">
+    <div class="modal-box" style="max-width:400px;">
+        <button class="modal-close-btn" onclick="closeModal('nicknameModal')">×</button>
+        <div class="modal-title">✏ 設定顯示名稱</div>
+        <div class="modal-sub">此名稱會顯示在頂部及所有操作紀錄中</div>
+        <div class="form-group">
+            <label class="form-label">顯示名稱 *</label>
+            <input class="form-input" type="text" id="nicknameInput" placeholder="例：王小明老師" maxlength="20">
+        </div>
+        <div id="nicknameMsg" style="font-size:12px;margin-bottom:12px;display:none;"></div>
+        <button class="btn-submit" onclick="saveNickname()">儲存</button>
+    </div>
+</div>
+
 <!-- 管理員面板 Modal -->
 <div class="modal-overlay" id="adminModal">
     <div class="modal-box" style="max-width:560px;">
@@ -403,6 +420,7 @@
     let targetId = null;
     let unsubscribe = null;
     let sectionState = { pending: true, purchased: false };
+    let userNickname = null;
 
     // ── 登入 ──
     function handleGoogleLogin() {
@@ -428,6 +446,7 @@
             isAdmin = await checkAdmin(user.email);
             guestMode = false;
             logLogin(user);
+            await loadNickname(user.email);
             showMain();
             listen();
         } else {
@@ -443,6 +462,39 @@
             const doc = await db.collection('admins').doc(email).get();
             return doc.exists;
         } catch { return false; }
+    }
+
+    // ── 暱稱 ──
+    async function loadNickname(email) {
+        try {
+            const doc = await db.collection("userProfiles").doc(email).get();
+            userNickname = doc.exists && doc.data().nickname ? doc.data().nickname : null;
+        } catch { userNickname = null; }
+    }
+
+    function getDisplayName() {
+        return userNickname || currentUser.displayName || currentUser.email;
+    }
+
+    function openNicknameModal() {
+        document.getElementById("nicknameInput").value = userNickname || currentUser.displayName || "";
+        document.getElementById("nicknameMsg").style.display = "none";
+        openModal("nicknameModal");
+    }
+
+    async function saveNickname() {
+        const name = document.getElementById("nicknameInput").value.trim();
+        const msg = document.getElementById("nicknameMsg");
+        if (!name) { msg.textContent = "請輸入名稱"; msg.style.color = "var(--danger)"; msg.style.display = "block"; return; }
+        try {
+            await db.collection("userProfiles").doc(currentUser.email).set({ nickname: name, updatedAt: new Date().toISOString() }, { merge: true });
+            userNickname = name;
+            updateUI();
+            msg.textContent = "✓ 已儲存";
+            msg.style.color = "var(--accent)";
+            msg.style.display = "block";
+            setTimeout(() => closeModal("nicknameModal"), 800);
+        } catch(e) { msg.textContent = "✗ " + e.message; msg.style.color = "var(--danger)"; msg.style.display = "block"; }
     }
 
     function logLogin(user) {
@@ -461,7 +513,7 @@
 
     function updateUI() {
         const effAdmin = isAdmin && !guestMode;
-        const name = currentUser.displayName || currentUser.email;
+        const name = getDisplayName();
         document.getElementById('userName').textContent = name;
         document.getElementById('userAvatar').textContent = name.charAt(0).toUpperCase();
         document.getElementById('adminTag').style.display = effAdmin ? 'inline' : 'none';
@@ -511,7 +563,7 @@
             status: 'pending',
             createdAt: new Date().toISOString(),
             createdBy: currentUser.email,
-            createdByName: currentUser.displayName || currentUser.email
+            createdByName: getDisplayName()
         }).then(() => {
             showAlert('addAlert', '✓ 已新增', 'success');
             document.getElementById('addForm').reset();
@@ -614,7 +666,7 @@
             purchasePrice: v('purchasePrice') || null,
             purchaseNote: v('purchaseNote') || null,
             purchasedBy: currentUser.email,
-            purchasedByName: currentUser.displayName || currentUser.email,
+            purchasedByName: getDisplayName(),
             purchasedAt: new Date().toISOString()
         }).then(() => closeModal('purchaseModal'))
           .catch(err => alert('失敗：' + err.message))
