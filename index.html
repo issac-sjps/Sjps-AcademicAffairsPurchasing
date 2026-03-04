@@ -441,16 +441,32 @@
     }
 
     auth.onAuthStateChanged(async user => {
-        if (user) {
             currentUser = user;
-            // 同時發送所有請求，不要一個等一個
-            [isAdmin, userNickname] = await Promise.all([
-                checkAdmin(user.email),
-                loadNickname(user.email)
-            ]);
-            logLogin(user);
+            isAdmin = false;
+            userNickname = null;
+            // 先顯示畫面、開始監聽，不等權限
             showMain();
             listen();
+            logLogin(user);
+            // 背景載入權限與暱稱，載完再更新 UI
+            Promise.all([
+                checkAdmin(user.email),
+                loadNickname(user.email)
+            ]).then(([admin, nick]) => {
+                isAdmin = admin;
+                userNickname = nick;
+                updateUI();
+            });
+
+
+
+
+
+
+
+
+
+
 
 
 
