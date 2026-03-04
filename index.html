@@ -253,7 +253,11 @@
     const db = firebase.firestore();
     const auth = firebase.auth();
 
-    const ADMIN_WHITELIST = ['issac.tw.edu@gmail.com'];
+    // ✅ 已更新：加入學校信箱
+    const ADMIN_WHITELIST = [
+        'issac.tw.edu@gmail.com',
+        'issac@sjps.kh.edu.tw'
+    ];
 
     let currentUser = null;
     let isAdmin = false;
@@ -267,7 +271,6 @@
         if (e.target.id === 'purchaseModal') closePurchaseModal();
     });
 
-    // ✅ 修復1: 改用 signInWithPopup，避免 redirect COOP 問題
     function handleGoogleLogin() {
         const btn = document.getElementById('loginBtn');
         const errEl = document.getElementById('loginError');
@@ -322,7 +325,6 @@
         btn.innerHTML = '<span>🔐</span> 使用 Google 帳號登入';
     }
 
-    // ✅ 修復2: onSnapshot 加錯誤處理，顯示 Firestore 規則提示
     function startListening() {
         if (unsubscribe) unsubscribe();
         unsubscribe = db.collection('items')
@@ -456,7 +458,6 @@
         document.getElementById('purchasedCount').textContent = items.filter(i => i.status === 'purchased').length;
     }
 
-    // ✅ 修復3: switchTab 傳入 btnEl，不依賴全域 event 變數
     function switchTab(btnEl, tabName) {
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
