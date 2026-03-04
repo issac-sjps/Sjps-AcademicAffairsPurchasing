@@ -646,7 +646,7 @@
         const actionsWithFooter = `<div style="display:flex;align-items:center;gap:12px;margin-top:8px;flex-wrap:wrap;">
             ${!isPurchased ? `<button class="btn-sm green" onclick="openPurchaseModal('${item.id}','${h(item.name).replace(/'/g,"\\'")}',${item.quantity})">✓ 標記採購</button>` : ''}
             ${effAdmin ? `<button class="btn-sm red" onclick="openDeleteModal('${item.id}')">刪除</button>` : ''}
-            <span style="font-size:11px;color:var(--text-muted);font-family:'Space Mono',monospace;opacity:.7;">${fmtDate(item.createdAt)}　${h(item.createdByName || item.createdBy)}</span>
+            <span style="font-size:11px;color:var(--text-muted);font-family:'Space Mono',monospace;opacity:.7;">${fmtDate(item.createdAt)}</span>
         </div>`;
 
         return `<div class="item ${isPurchased ? 'is-purchased' : ''}">
