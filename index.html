@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
         :root {
             --bg: #f5f3ee;
             --surface: #ffffff;
@@ -21,590 +20,142 @@
             --warn-light: #fdf0e8;
             --danger: #c0392b;
             --danger-light: #fdecea;
-            --blue: #1a3a5c;
-            --blue-light: #e8eef5;
             --deleted: #9e9488;
             --gold: #b8860b;
+            --gold-light: #fdf8e8;
         }
+        body { font-family: 'Noto Sans TC', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.6; }
 
-        body {
-            font-family: 'Noto Sans TC', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            min-height: 100vh;
-            line-height: 1.6;
-        }
-
-        /* ── LOGIN ── */
-        #loginPage {
-            min-height: 100vh;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            background: var(--bg);
-            padding: 20px;
-        }
+        /* LOGIN */
+        #loginPage { min-height: 100vh; display: none; align-items: center; justify-content: center; background: var(--bg); padding: 20px; }
         #loginPage.active { display: flex; }
-
-        .login-wrap {
-            max-width: 420px;
-            width: 100%;
-        }
-
-        .login-badge {
-            font-family: 'Space Mono', monospace;
-            font-size: 11px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 16px;
-            display: block;
-        }
-
-        .login-title {
-            font-size: 36px;
-            font-weight: 700;
-            color: var(--text);
-            line-height: 1.2;
-            margin-bottom: 8px;
-        }
-
-        .login-sub {
-            color: var(--text-muted);
-            font-size: 14px;
-            margin-bottom: 40px;
-        }
-
-        .login-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 32px;
-            margin-bottom: 20px;
-        }
-
-        .login-features {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 28px;
-        }
-
-        .login-feat {
-            background: var(--surface2);
-            border-radius: 8px;
-            padding: 12px;
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        .login-feat strong {
-            display: block;
-            color: var(--text);
-            font-size: 13px;
-            margin-bottom: 2px;
-        }
-
-        .btn-google {
-            width: 100%;
-            padding: 14px;
-            background: var(--text);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-family: 'Noto Sans TC', sans-serif;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: opacity 0.2s;
-        }
-
+        .login-wrap { max-width: 420px; width: 100%; }
+        .login-badge { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; display: block; }
+        .login-title { font-size: 36px; font-weight: 700; color: var(--text); line-height: 1.2; margin-bottom: 8px; }
+        .login-sub { color: var(--text-muted); font-size: 14px; margin-bottom: 40px; }
+        .login-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 32px; margin-bottom: 20px; }
+        .login-features { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 28px; }
+        .login-feat { background: var(--surface2); border-radius: 8px; padding: 12px; font-size: 12px; color: var(--text-muted); }
+        .login-feat strong { display: block; color: var(--text); font-size: 13px; margin-bottom: 2px; }
+        .btn-google { width: 100%; padding: 14px; background: var(--text); color: white; border: none; border-radius: 8px; font-family: 'Noto Sans TC', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; transition: opacity 0.2s; }
         .btn-google:hover { opacity: 0.85; }
         .btn-google:disabled { opacity: 0.5; cursor: not-allowed; }
+        .login-error { margin-top: 12px; padding: 10px 14px; background: var(--danger-light); border-left: 3px solid var(--danger); border-radius: 6px; font-size: 12px; color: var(--danger); display: none; }
 
-        .login-error {
-            margin-top: 12px;
-            padding: 10px 14px;
-            background: var(--danger-light);
-            border-left: 3px solid var(--danger);
-            border-radius: 6px;
-            font-size: 12px;
-            color: var(--danger);
-            display: none;
-        }
-
-        /* ── MAIN ── */
-        #mainPage {
-            display: none;
-            min-height: 100vh;
-        }
+        /* MAIN */
+        #mainPage { display: none; min-height: 100vh; }
         #mainPage.active { display: block; }
 
-        .topbar {
-            background: var(--surface);
-            border-bottom: 1px solid var(--border);
-            padding: 0 32px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+        .topbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 32px; height: 60px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+        .topbar-left { display: flex; align-items: center; gap: 16px; }
+        .topbar-logo { font-family: 'Space Mono', monospace; font-size: 13px; font-weight: 700; color: var(--accent); letter-spacing: 1px; }
+        .topbar-divider { width: 1px; height: 20px; background: var(--border); }
+        .topbar-title { font-size: 14px; color: var(--text-muted); }
+        .topbar-right { display: flex; align-items: center; gap: 12px; }
 
-        .topbar-left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
+        .user-chip { display: flex; align-items: center; gap: 8px; background: var(--surface2); border: 1px solid var(--border); border-radius: 20px; padding: 5px 12px 5px 5px; font-size: 12px; }
+        .user-avatar { width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: white; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; font-family: 'Space Mono', monospace; }
+        .admin-tag { background: var(--gold); color: white; font-size: 9px; font-weight: 700; font-family: 'Space Mono', monospace; letter-spacing: 1px; padding: 2px 6px; border-radius: 10px; text-transform: uppercase; }
+        .guest-tag { background: var(--text-muted); color: white; font-size: 9px; font-weight: 700; font-family: 'Space Mono', monospace; letter-spacing: 1px; padding: 2px 6px; border-radius: 10px; text-transform: uppercase; }
 
-        .topbar-logo {
-            font-family: 'Space Mono', monospace;
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--accent);
-            letter-spacing: 1px;
-        }
+        .btn-topbar { background: none; border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; font-size: 12px; color: var(--text-muted); cursor: pointer; font-family: 'Noto Sans TC', sans-serif; transition: all 0.2s; white-space: nowrap; }
+        .btn-topbar:hover { border-color: var(--text); color: var(--text); }
+        .btn-topbar.danger:hover { border-color: var(--danger); color: var(--danger); }
+        .btn-topbar.gold { border-color: var(--gold); color: var(--gold); }
+        .btn-topbar.gold:hover { background: var(--gold-light); }
 
-        .topbar-divider {
-            width: 1px;
-            height: 20px;
-            background: var(--border);
-        }
+        .main-wrap { max-width: 1100px; margin: 0 auto; padding: 40px 32px; display: grid; grid-template-columns: 300px 1fr; gap: 32px; align-items: start; }
+        @media (max-width: 800px) { .main-wrap { grid-template-columns: 1fr; padding: 20px 16px; } .topbar { padding: 0 16px; } }
 
-        .topbar-title {
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-
-        .topbar-right {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .user-chip {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--surface2);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 5px 12px 5px 5px;
-            font-size: 12px;
-        }
-
-        .user-avatar {
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
-            background: var(--accent);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 11px;
-            font-weight: 700;
-            font-family: 'Space Mono', monospace;
-        }
-
-        .admin-tag {
-            background: var(--accent);
-            color: white;
-            font-size: 9px;
-            font-weight: 700;
-            font-family: 'Space Mono', monospace;
-            letter-spacing: 1px;
-            padding: 2px 6px;
-            border-radius: 10px;
-            text-transform: uppercase;
-        }
-
-        .btn-logout {
-            background: none;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 6px 12px;
-            font-size: 12px;
-            color: var(--text-muted);
-            cursor: pointer;
-            font-family: 'Noto Sans TC', sans-serif;
-            transition: all 0.2s;
-        }
-        .btn-logout:hover { border-color: var(--danger); color: var(--danger); }
-
-        .main-wrap {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 40px 32px;
-            display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 32px;
-            align-items: start;
-        }
-
-        @media (max-width: 800px) {
-            .main-wrap { grid-template-columns: 1fr; padding: 20px 16px; }
-            .topbar { padding: 0 16px; }
-        }
-
-        /* ── SIDEBAR ── */
         .sidebar { display: flex; flex-direction: column; gap: 20px; }
-
-        .panel {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            overflow: hidden;
-        }
-
-        .panel-head {
-            padding: 16px 20px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .panel-head h3 {
-            font-size: 13px;
-            font-weight: 700;
-            font-family: 'Space Mono', monospace;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            color: var(--text-muted);
-        }
-
+        .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+        .panel-head { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+        .panel-head h3 { font-size: 12px; font-weight: 700; font-family: 'Space Mono', monospace; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-muted); }
         .panel-body { padding: 20px; }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .stat-box {
-            background: var(--surface2);
-            border-radius: 8px;
-            padding: 14px;
-            text-align: center;
-        }
-
-        .stat-num {
-            font-family: 'Space Mono', monospace;
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--text);
-            line-height: 1;
-            margin-bottom: 4px;
-        }
-
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .stat-box { background: var(--surface2); border-radius: 8px; padding: 14px; text-align: center; }
+        .stat-num { font-family: 'Space Mono', monospace; font-size: 28px; font-weight: 700; color: var(--text); line-height: 1; margin-bottom: 4px; }
         .stat-num.green { color: var(--accent); }
         .stat-num.gray { color: var(--deleted); }
+        .stat-lbl { font-size: 11px; color: var(--text-muted); letter-spacing: 0.5px; }
 
-        .stat-lbl {
-            font-size: 11px;
-            color: var(--text-muted);
-            letter-spacing: 0.5px;
-        }
-
-        /* ── FORM ── */
         .form-group { margin-bottom: 14px; }
-
-        .form-label {
-            display: block;
-            font-size: 11px;
-            font-weight: 700;
-            font-family: 'Space Mono', monospace;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 9px 12px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            font-family: 'Noto Sans TC', sans-serif;
-            font-size: 13px;
-            background: var(--bg);
-            color: var(--text);
-            transition: border-color 0.2s;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: var(--accent);
-            background: white;
-        }
-
+        .form-label { display: block; font-size: 11px; font-weight: 700; font-family: 'Space Mono', monospace; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 6px; }
+        .form-input { width: 100%; padding: 9px 12px; border: 1px solid var(--border); border-radius: 6px; font-family: 'Noto Sans TC', sans-serif; font-size: 13px; background: var(--bg); color: var(--text); transition: border-color 0.2s; }
+        .form-input:focus { outline: none; border-color: var(--accent); background: white; }
         .form-input::placeholder { color: var(--text-muted); }
-
+        .form-input:disabled { opacity: 0.5; cursor: not-allowed; }
         textarea.form-input { resize: vertical; min-height: 56px; }
-
         .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
-        .btn-submit {
-            width: 100%;
-            padding: 11px;
-            background: var(--accent);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-family: 'Noto Sans TC', sans-serif;
-            font-size: 13px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: opacity 0.2s;
-            margin-top: 4px;
-        }
+        .btn-submit { width: 100%; padding: 11px; background: var(--accent); color: white; border: none; border-radius: 6px; font-family: 'Noto Sans TC', sans-serif; font-size: 13px; font-weight: 700; cursor: pointer; transition: opacity 0.2s; margin-top: 4px; }
         .btn-submit:hover { opacity: 0.85; }
         .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
 
-        .alert-msg {
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 12px;
-            margin-bottom: 12px;
-            display: none;
-        }
+        .alert-msg { padding: 8px 12px; border-radius: 6px; font-size: 12px; margin-bottom: 12px; display: none; }
         .alert-msg.success { background: var(--accent-light); color: var(--accent); display: block; }
         .alert-msg.error { background: var(--danger-light); color: var(--danger); display: block; }
 
-        /* ── LIST PANEL ── */
-        .list-panel {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            overflow: hidden;
-        }
-
-        .list-head {
-            padding: 16px 24px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .list-head h2 {
-            font-size: 16px;
-            font-weight: 700;
-        }
-
-        .tabs {
-            display: flex;
-            gap: 4px;
-            background: var(--surface2);
-            border-radius: 8px;
-            padding: 3px;
-        }
-
-        .tab-btn {
-            background: none;
-            border: none;
-            padding: 6px 14px;
-            font-size: 12px;
-            font-family: 'Noto Sans TC', sans-serif;
-            font-weight: 500;
-            color: var(--text-muted);
-            cursor: pointer;
-            border-radius: 6px;
-            transition: all 0.2s;
-        }
-
-        .tab-btn.active {
-            background: var(--surface);
-            color: var(--text);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-
-        .list-body {
-            max-height: 600px;
-            overflow-y: auto;
-        }
-
-        .list-empty {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--text-muted);
-            font-size: 13px;
-        }
-
+        /* LIST */
+        .list-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+        .list-head { padding: 16px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+        .list-head h2 { font-size: 16px; font-weight: 700; }
+        .tabs { display: flex; gap: 4px; background: var(--surface2); border-radius: 8px; padding: 3px; flex-wrap: wrap; }
+        .tab-btn { background: none; border: none; padding: 6px 12px; font-size: 12px; font-family: 'Noto Sans TC', sans-serif; font-weight: 500; color: var(--text-muted); cursor: pointer; border-radius: 6px; transition: all 0.2s; }
+        .tab-btn.active { background: var(--surface); color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .list-body { max-height: 600px; overflow-y: auto; }
+        .list-empty { text-align: center; padding: 60px 20px; color: var(--text-muted); font-size: 13px; }
         .list-empty-icon { font-size: 32px; margin-bottom: 10px; }
 
-        /* ── ITEM ── */
-        .item {
-            padding: 16px 24px;
-            border-bottom: 1px solid var(--border);
-            transition: background 0.15s;
-        }
+        /* ITEM */
+        .item { padding: 16px 24px; border-bottom: 1px solid var(--border); transition: background 0.15s; }
         .item:last-child { border-bottom: none; }
         .item:hover { background: var(--surface2); }
-
         .item.is-purchased { background: var(--accent-light); }
         .item.is-purchased:hover { background: #deeedd; }
-
-        .item.is-deleted {
-            background: var(--surface2);
-            opacity: 0.65;
-        }
-
-        .item-top {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 12px;
-            margin-bottom: 6px;
-        }
-
-        .item-name {
-            font-weight: 700;
-            font-size: 15px;
-            flex: 1;
-        }
-
-        .item.is-deleted .item-name {
-            text-decoration: line-through;
-            color: var(--deleted);
-        }
-
-        .badge {
-            font-size: 10px;
-            font-weight: 700;
-            font-family: 'Space Mono', monospace;
-            letter-spacing: 0.5px;
-            padding: 3px 8px;
-            border-radius: 10px;
-            white-space: nowrap;
-            text-transform: uppercase;
-        }
-
+        .item.is-deleted { background: var(--surface2); opacity: 0.65; }
+        .item-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+        .item-name { font-weight: 700; font-size: 15px; flex: 1; }
+        .item.is-deleted .item-name { text-decoration: line-through; color: var(--deleted); }
+        .badge { font-size: 10px; font-weight: 700; font-family: 'Space Mono', monospace; letter-spacing: 0.5px; padding: 3px 8px; border-radius: 10px; white-space: nowrap; text-transform: uppercase; }
         .badge-pending { background: var(--warn-light); color: var(--warn); }
         .badge-purchased { background: var(--accent-light); color: var(--accent); }
         .badge-deleted { background: var(--surface2); color: var(--deleted); border: 1px solid var(--border); }
-
-        .item-meta {
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-            line-height: 1.5;
-        }
-
-        .item-purchase-info {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 8px 12px;
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-        }
-
-        .item-delete-info {
-            background: var(--surface2);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 8px 12px;
-            font-size: 11px;
-            color: var(--deleted);
-            margin-bottom: 8px;
-            font-style: italic;
-        }
-
-        .item-actions {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .btn-sm {
-            padding: 5px 12px;
-            border: 1px solid var(--border);
-            border-radius: 5px;
-            font-size: 11px;
-            font-family: 'Noto Sans TC', sans-serif;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-            background: var(--surface);
-        }
-
+        .item-meta { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; line-height: 1.5; }
+        .item-purchase-info { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 8px 12px; font-size: 12px; color: var(--text-muted); margin-bottom: 8px; }
+        .item-delete-info { background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 8px 12px; font-size: 11px; color: var(--deleted); margin-bottom: 8px; font-style: italic; }
+        .item-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+        .btn-sm { padding: 5px 12px; border: 1px solid var(--border); border-radius: 5px; font-size: 11px; font-family: 'Noto Sans TC', sans-serif; font-weight: 500; cursor: pointer; transition: all 0.2s; background: var(--surface); }
         .btn-sm:hover { background: var(--surface2); }
-
         .btn-sm.green { border-color: var(--accent); color: var(--accent); }
         .btn-sm.green:hover { background: var(--accent-light); }
-
         .btn-sm.red { border-color: var(--danger); color: var(--danger); }
         .btn-sm.red:hover { background: var(--danger-light); }
-
         .btn-sm.gray { border-color: var(--deleted); color: var(--deleted); }
-        .btn-sm.gray:hover { background: var(--surface2); }
+        .item-footer { font-size: 11px; color: var(--text-muted); font-family: 'Space Mono', monospace; margin-top: 8px; opacity: 0.7; }
 
-        .item-footer {
-            font-size: 11px;
-            color: var(--text-muted);
-            font-family: 'Space Mono', monospace;
-            margin-top: 8px;
-            opacity: 0.7;
-        }
-
-        /* ── MODAL ── */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.4);
-            z-index: 500;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
+        /* MODAL */
+        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 500; align-items: center; justify-content: center; padding: 20px; }
         .modal-overlay.active { display: flex; }
+        .modal-box { background: var(--surface); border-radius: 12px; padding: 32px; max-width: 480px; width: 100%; max-height: 85vh; overflow-y: auto; position: relative; border: 1px solid var(--border); }
+        .modal-title { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+        .modal-sub { font-size: 12px; color: var(--text-muted); margin-bottom: 24px; }
+        .modal-close-btn { position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 22px; cursor: pointer; color: var(--text-muted); line-height: 1; }
 
-        .modal-box {
-            background: var(--surface);
-            border-radius: 12px;
-            padding: 32px;
-            max-width: 440px;
-            width: 100%;
-            max-height: 85vh;
-            overflow-y: auto;
-            position: relative;
-            border: 1px solid var(--border);
-        }
+        /* ADMIN TABLE */
+        .admin-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+        .admin-table th { text-align: left; padding: 8px 10px; border-bottom: 2px solid var(--border); color: var(--text-muted); font-family: 'Space Mono', monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .admin-table td { padding: 10px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+        .admin-table tr:last-child td { border-bottom: none; }
+        .admin-table tr:hover td { background: var(--surface2); }
 
-        .modal-title {
-            font-size: 17px;
-            font-weight: 700;
-            margin-bottom: 6px;
-        }
+        .role-pill { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 700; font-family: 'Space Mono', monospace; }
+        .role-admin { background: var(--gold-light); color: var(--gold); border: 1px solid #e8d080; }
+        .role-user { background: var(--surface2); color: var(--text-muted); border: 1px solid var(--border); }
 
-        .modal-sub {
-            font-size: 12px;
-            color: var(--text-muted);
-            margin-bottom: 24px;
-        }
-
-        .modal-close-btn {
-            position: absolute;
-            top: 16px; right: 16px;
-            background: none;
-            border: none;
-            font-size: 22px;
-            cursor: pointer;
-            color: var(--text-muted);
-            line-height: 1;
-        }
+        .mode-banner { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 16px; font-size: 12px; color: var(--text-muted); margin-bottom: 16px; display: none; text-align: center; }
+        .mode-banner.show { display: block; }
 
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-track { background: transparent; }
@@ -624,7 +175,7 @@
                 <div class="login-feat"><strong>📋 新增需求</strong>所有登入者皆可新增</div>
                 <div class="login-feat"><strong>✓ 標記採購</strong>填寫採購日期與數量</div>
                 <div class="login-feat"><strong>📖 查看紀錄</strong>歷史採購一覽無遺</div>
-                <div class="login-feat"><strong>🗑 刪除紀錄</strong>保留刪除操作記錄</div>
+                <div class="login-feat"><strong>👤 Google 登入</strong>自動記錄操作者</div>
             </div>
             <button class="btn-google" id="loginBtn" onclick="handleGoogleLogin()">
                 <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#fff" d="M9 3.48c1.69 0 2.83.73 3.48 1.34l2.54-2.48C13.46.89 11.43 0 9 0 5.48 0 2.44 2.02.96 4.96l2.91 2.26C4.6 5.05 6.62 3.48 9 3.48z"/><path fill="#fff" d="M17.64 9.2c0-.74-.06-1.28-.19-1.84H9v3.34h4.96c-.1.83-.64 2.08-1.84 2.92l2.84 2.2c1.7-1.57 2.68-3.88 2.68-6.62z"/><path fill="#fff" d="M3.88 10.78A5.54 5.54 0 0 1 3.58 9c0-.62.11-1.22.29-1.78L.96 4.96A9 9 0 0 0 0 9c0 1.45.35 2.82.96 4.04l2.92-2.26z"/><path fill="#fff" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.84-2.2c-.76.53-1.78.9-3.12.9-2.38 0-4.4-1.57-5.12-3.74L.97 13.04C2.45 15.98 5.48 18 9 18z"/></svg>
@@ -648,15 +199,18 @@
                 <div class="user-avatar" id="userAvatar">?</div>
                 <span id="userName">-</span>
                 <span class="admin-tag" id="adminTag" style="display:none">管理員</span>
+                <span class="guest-tag" id="guestTag" style="display:none">訪客模式</span>
             </div>
-            <button class="btn-logout" onclick="handleLogout()">登出</button>
+            <!-- 管理員按鈕 -->
+            <button class="btn-topbar gold" id="btnAdminPanel" style="display:none" onclick="openModal('adminModal')">⚙ 管理</button>
+            <button class="btn-topbar" id="btnSwitchMode" style="display:none" onclick="toggleGuestMode()"></button>
+            <button class="btn-topbar danger" onclick="handleLogout()">登出</button>
         </div>
     </div>
 
     <div class="main-wrap">
         <!-- 左側 -->
         <div class="sidebar">
-            <!-- 統計 -->
             <div class="panel">
                 <div class="panel-head"><h3>統計</h3></div>
                 <div class="panel-body">
@@ -681,7 +235,6 @@
                 </div>
             </div>
 
-            <!-- 新增表單 -->
             <div class="panel">
                 <div class="panel-head"><h3>新增需求</h3></div>
                 <div class="panel-body">
@@ -715,7 +268,7 @@
             </div>
         </div>
 
-        <!-- 右側清單 -->
+        <!-- 右側 -->
         <div class="list-panel">
             <div class="list-head">
                 <h2>需求清單</h2>
@@ -726,6 +279,7 @@
                     <button class="tab-btn" onclick="switchTab(this,'deleted')">刪除紀錄</button>
                 </div>
             </div>
+            <div class="mode-banner" id="modeBanner">👤 訪客模式：目前以一般使用者身份瀏覽</div>
             <div class="list-body" id="listBody">
                 <div class="list-empty"><div class="list-empty-icon">⏳</div>載入中...</div>
             </div>
@@ -733,7 +287,7 @@
     </div>
 </div>
 
-<!-- 標記採購 Modal -->
+<!-- 採購 Modal -->
 <div class="modal-overlay" id="purchaseModal">
     <div class="modal-box">
         <button class="modal-close-btn" onclick="closeModal('purchaseModal')">×</button>
@@ -746,7 +300,7 @@
             </div>
             <div class="form-row">
                 <div class="form-group">
-                    <label class="form-label">實際採購數量 *</label>
+                    <label class="form-label">實際數量 *</label>
                     <input class="form-input" type="number" id="purchaseQty" min="1" required>
                 </div>
                 <div class="form-group">
@@ -768,7 +322,7 @@
     <div class="modal-box">
         <button class="modal-close-btn" onclick="closeModal('deleteModal')">×</button>
         <div class="modal-title">刪除此需求</div>
-        <div class="modal-sub">刪除後仍可在「刪除紀錄」頁籤中查看，並保留操作者資訊。</div>
+        <div class="modal-sub">刪除後仍可在「刪除紀錄」頁籤查看。</div>
         <div class="form-group">
             <label class="form-label">刪除原因（選填）</label>
             <textarea class="form-input" id="deleteReason" placeholder="重複新增、已不需要..."></textarea>
@@ -780,7 +334,7 @@
     </div>
 </div>
 
-<!-- 徹底刪除 Modal（管理員） -->
+<!-- 徹底刪除 Modal -->
 <div class="modal-overlay" id="hardDeleteModal">
     <div class="modal-box">
         <button class="modal-close-btn" onclick="closeModal('hardDeleteModal')">×</button>
@@ -789,6 +343,38 @@
         <div style="display:flex;gap:10px;margin-top:16px;">
             <button class="btn-sm" style="flex:1;padding:10px;" onclick="closeModal('hardDeleteModal')">取消</button>
             <button class="btn-sm red" style="flex:1;padding:10px;" onclick="confirmHardDelete()">永久刪除</button>
+        </div>
+    </div>
+</div>
+
+<!-- 管理員面板 Modal -->
+<div class="modal-overlay" id="adminModal">
+    <div class="modal-box" style="max-width:560px;">
+        <button class="modal-close-btn" onclick="closeModal('adminModal')">×</button>
+        <div class="modal-title">⚙ 管理員面板</div>
+        <div class="modal-sub">查看登入紀錄、管理管理員名單</div>
+
+        <!-- 新增管理員 -->
+        <div style="background:var(--surface2);border-radius:8px;padding:16px;margin-bottom:20px;">
+            <div class="form-label" style="margin-bottom:10px;">升級為管理員</div>
+            <div style="display:flex;gap:8px;">
+                <input class="form-input" type="email" id="newAdminEmail" placeholder="輸入 Google 帳號 Email" style="flex:1;">
+                <button class="btn-sm green" style="padding:8px 14px;white-space:nowrap;" onclick="addAdmin()">新增</button>
+            </div>
+            <div style="font-size:11px;color:var(--text-muted);margin-top:6px;">該使用者下次登入後即生效</div>
+            <div id="adminAddMsg" style="font-size:12px;margin-top:8px;display:none;"></div>
+        </div>
+
+        <!-- 管理員名單 -->
+        <div class="form-label" style="margin-bottom:10px;">目前管理員名單</div>
+        <div id="adminList" style="margin-bottom:24px;">
+            <div style="color:var(--text-muted);font-size:13px;">載入中...</div>
+        </div>
+
+        <!-- 登入紀錄 -->
+        <div class="form-label" style="margin-bottom:10px;">最近登入紀錄</div>
+        <div id="loginLogList">
+            <div style="color:var(--text-muted);font-size:13px;">載入中...</div>
         </div>
     </div>
 </div>
@@ -811,14 +397,12 @@
     const db = firebase.firestore();
     const auth = firebase.auth();
 
-    // ── 管理員白名單 ──
-    const ADMIN_WHITELIST = [
-        'issac.tw.edu@gmail.com',
-        'issac@sjps.kh.edu.tw'
-    ];
+    // 超級管理員（寫死，無法被移除）
+    const SUPER_ADMINS = ['issac.tw.edu@gmail.com', 'issac@sjps.kh.edu.tw'];
 
     let currentUser = null;
     let isAdmin = false;
+    let guestMode = false; // 管理員切換成訪客模式
     let items = [];
     let currentTab = 'all';
     let targetId = null;
@@ -831,7 +415,6 @@
         btn.disabled = true;
         btn.textContent = '登入中...';
         err.style.display = 'none';
-
         auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
             .catch(e => {
                 let msg = '登入失敗，請重試';
@@ -840,14 +423,18 @@
                 err.textContent = '⚠ ' + msg;
                 err.style.display = 'block';
                 btn.disabled = false;
-                btn.textContent = '使用 Google 帳號登入';
+                btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 18 18"><path fill="#fff" d="M9 3.48c1.69 0 2.83.73 3.48 1.34l2.54-2.48C13.46.89 11.43 0 9 0 5.48 0 2.44 2.02.96 4.96l2.91 2.26C4.6 5.05 6.62 3.48 9 3.48z"/><path fill="#fff" d="M17.64 9.2c0-.74-.06-1.28-.19-1.84H9v3.34h4.96c-.1.83-.64 2.08-1.84 2.92l2.84 2.2c1.7-1.57 2.68-3.88 2.68-6.62z"/><path fill="#fff" d="M3.88 10.78A5.54 5.54 0 0 1 3.58 9c0-.62.11-1.22.29-1.78L.96 4.96A9 9 0 0 0 0 9c0 1.45.35 2.82.96 4.04l2.92-2.26z"/><path fill="#fff" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.84-2.2c-.76.53-1.78.9-3.12.9-2.38 0-4.4-1.57-5.12-3.74L.97 13.04C2.45 15.98 5.48 18 9 18z"/></svg> 使用 Google 帳號登入`;
             });
     }
 
-    auth.onAuthStateChanged(user => {
+    auth.onAuthStateChanged(async user => {
         if (user) {
             currentUser = user;
-            isAdmin = ADMIN_WHITELIST.includes(user.email);
+            // 檢查是否為管理員（超級 + Firestore 動態名單）
+            isAdmin = await checkAdmin(user.email);
+            guestMode = false;
+            // 記錄登入
+            logLogin(user);
             showMain();
             listen();
         } else {
@@ -856,27 +443,68 @@
         }
     });
 
+    async function checkAdmin(email) {
+        if (SUPER_ADMINS.includes(email)) return true;
+        try {
+            const doc = await db.collection('admins').doc(email).get();
+            return doc.exists;
+        } catch { return false; }
+    }
+
+    function logLogin(user) {
+        db.collection('loginLogs').add({
+            email: user.email,
+            name: user.displayName || user.email,
+            loginAt: new Date().toISOString()
+        }).catch(() => {});
+    }
+
     function showMain() {
         document.getElementById('loginPage').classList.remove('active');
         document.getElementById('mainPage').classList.add('active');
+        updateUI();
+    }
+
+    function updateUI() {
+        const effectiveAdmin = isAdmin && !guestMode;
         const name = currentUser.displayName || currentUser.email;
         document.getElementById('userName').textContent = name;
         document.getElementById('userAvatar').textContent = name.charAt(0).toUpperCase();
-        if (isAdmin) document.getElementById('adminTag').style.display = 'inline';
+        document.getElementById('adminTag').style.display = (isAdmin && !guestMode) ? 'inline' : 'none';
+        document.getElementById('guestTag').style.display = guestMode ? 'inline' : 'none';
+
+        if (isAdmin) {
+            document.getElementById('btnAdminPanel').style.display = guestMode ? 'none' : 'inline';
+            document.getElementById('btnSwitchMode').style.display = 'inline';
+            document.getElementById('btnSwitchMode').textContent = guestMode ? '↩ 切回管理員' : '👤 切換訪客模式';
+            document.getElementById('btnSwitchMode').className = guestMode ? 'btn-topbar gold' : 'btn-topbar';
+        }
+
+        const banner = document.getElementById('modeBanner');
+        banner.className = guestMode ? 'mode-banner show' : 'mode-banner';
+
+        renderList();
     }
 
     function showLogin() {
         document.getElementById('loginPage').classList.add('active');
         document.getElementById('mainPage').classList.remove('active');
-        const btn = document.getElementById('loginBtn');
-        btn.disabled = false;
-        btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 18 18"><path fill="#fff" d="M9 3.48c1.69 0 2.83.73 3.48 1.34l2.54-2.48C13.46.89 11.43 0 9 0 5.48 0 2.44 2.02.96 4.96l2.91 2.26C4.6 5.05 6.62 3.48 9 3.48z"/><path fill="#fff" d="M17.64 9.2c0-.74-.06-1.28-.19-1.84H9v3.34h4.96c-.1.83-.64 2.08-1.84 2.92l2.84 2.2c1.7-1.57 2.68-3.88 2.68-6.62z"/><path fill="#fff" d="M3.88 10.78A5.54 5.54 0 0 1 3.58 9c0-.62.11-1.22.29-1.78L.96 4.96A9 9 0 0 0 0 9c0 1.45.35 2.82.96 4.04l2.92-2.26z"/><path fill="#fff" d="M9 18c2.43 0 4.47-.8 5.96-2.18l-2.84-2.2c-.76.53-1.78.9-3.12.9-2.38 0-4.4-1.57-5.12-3.74L.97 13.04C2.45 15.98 5.48 18 9 18z"/></svg> 使用 Google 帳號登入`;
     }
 
     function handleLogout() {
         if (unsubscribe) { unsubscribe(); unsubscribe = null; }
         auth.signOut();
     }
+
+    // ── 切換訪客模式 ──
+    function toggleGuestMode() {
+        if (!isAdmin) return;
+        guestMode = !guestMode;
+        updateUI();
+    }
+
+    // ── 有效權限（考量訪客模式）──
+    function effectiveAdmin() { return isAdmin && !guestMode; }
 
     // ── 即時監聽 ──
     function listen() {
@@ -887,7 +515,7 @@
                 items = snap.docs.map(d => ({ id: d.id, ...d.data() }));
                 renderList();
                 updateStats();
-            }, err => {
+            }, () => {
                 document.getElementById('listBody').innerHTML =
                     '<div class="list-empty"><div class="list-empty-icon">⚠️</div>讀取失敗，請確認 Firestore 安全規則</div>';
             });
@@ -899,7 +527,6 @@
         const btn = document.getElementById('addBtn');
         btn.disabled = true;
         btn.textContent = '新增中...';
-
         db.collection('items').add({
             name: v('itemName'),
             quantity: parseInt(v('quantity')),
@@ -910,19 +537,12 @@
             createdAt: new Date().toISOString(),
             createdBy: currentUser.email,
             createdByName: currentUser.displayName || currentUser.email,
-            deletedAt: null,
-            deletedBy: null,
-            deletedByName: null,
-            deleteReason: null
+            deletedAt: null, deletedBy: null, deletedByName: null, deleteReason: null
         }).then(() => {
             showAlert('addAlert', '✓ 已新增', 'success');
             document.getElementById('addForm').reset();
-        }).catch(err => {
-            showAlert('addAlert', '✗ 失敗：' + err.message, 'error');
-        }).finally(() => {
-            btn.disabled = false;
-            btn.textContent = '＋ 新增需求';
-        });
+        }).catch(err => showAlert('addAlert', '✗ ' + err.message, 'error'))
+          .finally(() => { btn.disabled = false; btn.textContent = '＋ 新增需求'; });
     });
 
     // ── 渲染 ──
@@ -934,8 +554,7 @@
         if (currentTab === 'all')       list = items.filter(i => !i.deletedAt);
 
         if (!list.length) {
-            document.getElementById('listBody').innerHTML =
-                '<div class="list-empty"><div class="list-empty-icon">📭</div>沒有項目</div>';
+            document.getElementById('listBody').innerHTML = '<div class="list-empty"><div class="list-empty-icon">📭</div>沒有項目</div>';
             return;
         }
         document.getElementById('listBody').innerHTML = list.map(renderItem).join('');
@@ -944,12 +563,11 @@
     function renderItem(item) {
         const isDeleted = !!item.deletedAt;
         const isPurchased = item.status === 'purchased';
+        const eff = effectiveAdmin();
 
         let statusBadge = `<span class="badge badge-pending">待採購</span>`;
         if (isPurchased) statusBadge = `<span class="badge badge-purchased">✓ 已採購</span>`;
         if (isDeleted)   statusBadge = `<span class="badge badge-deleted">已刪除</span>`;
-
-        const date = fmtDate(item.createdAt);
 
         let purchaseInfo = '';
         if (isPurchased && !isDeleted) {
@@ -957,30 +575,26 @@
                 ✓ 採購日期：${item.purchaseDate}　數量：${item.purchaseQty} ${h(item.unit)}
                 ${item.purchasePrice ? `　金額：NT$ ${parseInt(item.purchasePrice).toLocaleString()}` : ''}
                 ${item.purchaseNote ? `<br>備註：${h(item.purchaseNote)}` : ''}
-                <br><span style="opacity:.6">採購者：${h(item.purchasedByName || item.purchasedBy)}</span>
+                <br><span style="opacity:.6">採購者：${h(item.purchasedByName || item.purchasedBy || '')}</span>
             </div>`;
         }
 
         let deleteInfo = '';
         if (isDeleted) {
             deleteInfo = `<div class="item-delete-info">
-                刪除於 ${fmtDate(item.deletedAt)}　by ${h(item.deletedByName || item.deletedBy)}
+                刪除於 ${fmtDate(item.deletedAt)}　by ${h(item.deletedByName || item.deletedBy || '')}
                 ${item.deleteReason ? `　原因：${h(item.deleteReason)}` : ''}
             </div>`;
         }
 
         let actions = '';
         if (!isDeleted) {
-            actions += `<div class="item-actions">`;
-            if (!isPurchased) {
-                actions += `<button class="btn-sm green" onclick="openPurchaseModal('${item.id}','${h(item.name).replace(/'/g,"\\'")}',${item.quantity})">✓ 標記採購</button>`;
-            }
+            actions = `<div class="item-actions">`;
+            if (!isPurchased) actions += `<button class="btn-sm green" onclick="openPurchaseModal('${item.id}','${h(item.name).replace(/'/g,"\\'")}',${item.quantity})">✓ 標記採購</button>`;
             actions += `<button class="btn-sm red" onclick="openDeleteModal('${item.id}')">刪除</button>`;
-            if (isAdmin) {
-                actions += `<button class="btn-sm gray" onclick="openHardDeleteModal('${item.id}')">徹底刪除</button>`;
-            }
+            if (eff) actions += `<button class="btn-sm gray" onclick="openHardDeleteModal('${item.id}')">徹底刪除</button>`;
             actions += `</div>`;
-        } else if (isAdmin) {
+        } else if (eff) {
             actions = `<div class="item-actions"><button class="btn-sm gray" onclick="openHardDeleteModal('${item.id}')">永久清除</button></div>`;
         }
 
@@ -994,14 +608,12 @@
                 ${item.requester ? `　提出人：${h(item.requester)}` : ''}
                 ${item.description ? `<br>${h(item.description)}` : ''}
             </div>
-            ${purchaseInfo}
-            ${deleteInfo}
-            ${actions}
-            <div class="item-footer">${date}　${h(item.createdByName || item.createdBy)}</div>
+            ${purchaseInfo}${deleteInfo}${actions}
+            <div class="item-footer">${fmtDate(item.createdAt)}　${h(item.createdByName || item.createdBy)}</div>
         </div>`;
     }
 
-    // ── 採購 Modal ──
+    // ── 採購 ──
     function openPurchaseModal(id, name, qty) {
         targetId = id;
         document.getElementById('purchaseModalSub').textContent = `物品：${name}`;
@@ -1017,7 +629,6 @@
         if (!targetId) return;
         const btn = e.target.querySelector('button[type="submit"]');
         btn.disabled = true;
-
         db.collection('items').doc(targetId).update({
             status: 'purchased',
             purchaseDate: v('purchaseDate'),
@@ -1032,13 +643,8 @@
           .finally(() => btn.disabled = false);
     });
 
-    // ── 軟刪除 Modal ──
-    function openDeleteModal(id) {
-        targetId = id;
-        document.getElementById('deleteReason').value = '';
-        openModal('deleteModal');
-    }
-
+    // ── 刪除 ──
+    function openDeleteModal(id) { targetId = id; document.getElementById('deleteReason').value = ''; openModal('deleteModal'); }
     function confirmSoftDelete() {
         if (!targetId) return;
         db.collection('items').doc(targetId).update({
@@ -1046,21 +652,92 @@
             deletedBy: currentUser.email,
             deletedByName: currentUser.displayName || currentUser.email,
             deleteReason: v('deleteReason') || null
-        }).then(() => closeModal('deleteModal'))
-          .catch(err => alert('刪除失敗：' + err.message));
+        }).then(() => closeModal('deleteModal')).catch(err => alert(err.message));
     }
 
-    // ── 徹底刪除 Modal（管理員） ──
-    function openHardDeleteModal(id) {
-        targetId = id;
-        openModal('hardDeleteModal');
-    }
-
+    function openHardDeleteModal(id) { targetId = id; openModal('hardDeleteModal'); }
     function confirmHardDelete() {
-        if (!targetId || !isAdmin) return;
+        if (!targetId || !effectiveAdmin()) return;
         db.collection('items').doc(targetId).delete()
-            .then(() => closeModal('hardDeleteModal'))
-            .catch(err => alert('刪除失敗：' + err.message));
+            .then(() => closeModal('hardDeleteModal')).catch(err => alert(err.message));
+    }
+
+    // ── 管理員面板 ──
+    async function openAdminModal() {
+        openModal('adminModal');
+        loadAdminList();
+        loadLoginLog();
+    }
+
+    async function loadAdminList() {
+        const el = document.getElementById('adminList');
+        try {
+            const snap = await db.collection('admins').get();
+            const admins = snap.docs.map(d => d.id);
+            // 加入超級管理員
+            const all = [...new Set([...SUPER_ADMINS, ...admins])];
+            if (!all.length) { el.innerHTML = '<div style="color:var(--text-muted);font-size:13px;">無</div>'; return; }
+            el.innerHTML = `<table class="admin-table">
+                <thead><tr><th>Email</th><th>類型</th><th></th></tr></thead>
+                <tbody>${all.map(email => {
+                    const isSuper = SUPER_ADMINS.includes(email);
+                    return `<tr>
+                        <td style="font-family:'Space Mono',monospace;font-size:11px;">${h(email)}</td>
+                        <td><span class="role-pill role-admin">${isSuper ? '超級管理員' : '管理員'}</span></td>
+                        <td>${!isSuper ? `<button class="btn-sm red" style="font-size:10px;padding:3px 8px;" onclick="removeAdmin('${h(email)}')">移除</button>` : ''}</td>
+                    </tr>`;
+                }).join('')}</tbody>
+            </table>`;
+        } catch(e) {
+            el.innerHTML = '<div style="color:var(--danger);font-size:12px;">載入失敗</div>';
+        }
+    }
+
+    async function loadLoginLog() {
+        const el = document.getElementById('loginLogList');
+        try {
+            const snap = await db.collection('loginLogs').orderBy('loginAt','desc').limit(20).get();
+            if (snap.empty) { el.innerHTML = '<div style="color:var(--text-muted);font-size:13px;">無紀錄</div>'; return; }
+            el.innerHTML = `<table class="admin-table">
+                <thead><tr><th>姓名</th><th>Email</th><th>時間</th></tr></thead>
+                <tbody>${snap.docs.map(d => {
+                    const r = d.data();
+                    return `<tr>
+                        <td>${h(r.name)}</td>
+                        <td style="font-family:'Space Mono',monospace;font-size:10px;">${h(r.email)}</td>
+                        <td style="font-size:11px;color:var(--text-muted);">${fmtDate(r.loginAt)}</td>
+                    </tr>`;
+                }).join('')}</tbody>
+            </table>`;
+        } catch(e) {
+            el.innerHTML = '<div style="color:var(--danger);font-size:12px;">載入失敗（請確認 Firestore 規則）</div>';
+        }
+    }
+
+    async function addAdmin() {
+        const email = document.getElementById('newAdminEmail').value.trim().toLowerCase();
+        const msg = document.getElementById('adminAddMsg');
+        if (!email) return;
+        if (SUPER_ADMINS.includes(email)) {
+            msg.textContent = '該帳號已是超級管理員'; msg.style.color = 'var(--warn)'; msg.style.display = 'block'; return;
+        }
+        try {
+            await db.collection('admins').doc(email).set({ addedBy: currentUser.email, addedAt: new Date().toISOString() });
+            msg.textContent = '✓ 已新增，該使用者下次登入後生效'; msg.style.color = 'var(--accent)';
+            document.getElementById('newAdminEmail').value = '';
+            loadAdminList();
+        } catch(e) {
+            msg.textContent = '✗ 失敗：' + e.message; msg.style.color = 'var(--danger)';
+        }
+        msg.style.display = 'block';
+    }
+
+    async function removeAdmin(email) {
+        if (!confirm(`確定移除 ${email} 的管理員身份？`)) return;
+        try {
+            await db.collection('admins').doc(email).delete();
+            loadAdminList();
+        } catch(e) { alert('移除失敗：' + e.message); }
     }
 
     // ── 統計 ──
@@ -1080,30 +757,29 @@
         renderList();
     }
 
-    // ── 工具 ──
-    function openModal(id)  { document.getElementById(id).classList.add('active'); }
+    // ── Modal ──
+    function openModal(id) {
+        document.getElementById(id).classList.add('active');
+        if (id === 'adminModal') { loadAdminList(); loadLoginLog(); }
+    }
     function closeModal(id) { document.getElementById(id).classList.remove('active'); targetId = null; }
-
     document.querySelectorAll('.modal-overlay').forEach(m => {
         m.addEventListener('click', e => { if (e.target === m) closeModal(m.id); });
     });
 
+    // ── 工具 ──
     function v(id) { return document.getElementById(id).value.trim(); }
-
     function h(t) {
         if (!t) return '';
         return String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
     }
-
     function fmtDate(iso) {
         if (!iso) return '';
         return new Date(iso).toLocaleString('zh-TW', { month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit' });
     }
-
     function showAlert(id, msg, type) {
         const el = document.getElementById(id);
-        el.textContent = msg;
-        el.className = 'alert-msg ' + type;
+        el.textContent = msg; el.className = 'alert-msg ' + type;
         setTimeout(() => { el.className = 'alert-msg'; el.textContent = ''; }, 3000);
     }
 </script>
